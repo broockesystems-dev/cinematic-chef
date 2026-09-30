@@ -19,7 +19,8 @@
   "Footer": {
     "privacy": "Privacy",
     "terms": "Terms of use",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "contact": "Contact"
   },
   "NotFound": {
     "title": "Page not found",
@@ -37,7 +38,11 @@
       "invalid": "Enter a valid email address.",
       "rate_limited": "Too many attempts. Wait a few minutes and try again.",
       "error": "We couldn't send the link right now. Please try again shortly."
-    }
+    },
+    "google": "Continue with Google",
+    "or": "or",
+    "terms": "By continuing you accept the <terms>Terms of Use</terms> and the <privacy>Privacy Policy</privacy>.",
+    "googleError": "Google sign-in isn't available right now. Use the email link instead."
   },
   "Dish": {
     "free": "Free",
@@ -137,5 +142,91 @@
     "collapsePanel": "Collapse list",
     "pinLabel": "{place}: {count, plural, one {# dish} other {# dishes}}",
     "empty": "The first dishes are coming soon."
+  },
+  "Pricing": {
+    "title": "Plans",
+    "subtitle": "Explore the globe for free. Subscribe to cook everything.",
+    "free": {
+      "name": "Free",
+      "price": "$0",
+      "cta": "Start exploring",
+      "features": [
+        "Globe and search",
+        "Teasers for every dish",
+        "A few full recipes per country"
+      ]
+    },
+    "monthly": {
+      "name": "Monthly",
+      "period": "/month"
+    },
+    "annual": {
+      "name": "Annual",
+      "period": "/year",
+      "badge": "2 months free"
+    },
+    "features": [
+      "Every recipe and full video",
+      "Cook mode with timers",
+      "Favorites",
+      "New dishes every week"
+    ],
+    "subscribe": "Subscribe",
+    "redirecting": "Opening checkout…",
+    "currencyBRL": "Prices in Brazilian reais. Pay with Pix via Mercado Pago; each payment unlocks the chosen period, with no automatic charges.",
+    "currencyUSD": "Prices in US dollars. Card payment via Stripe, renews automatically, cancel anytime.",
+    "countryLabel": "Your country",
+    "countryHint": "Sets the payment currency.",
+    "alreadySubscribed": "You're already a subscriber.",
+    "manage": "See my subscription",
+    "canceled": "Checkout canceled. You weren't charged.",
+    "errors": {
+      "provider_error": "We couldn't open checkout right now. Please try again.",
+      "rate_limited": "Too many attempts. Please wait a few minutes.",
+      "country_required": "Choose your country.",
+      "already_subscribed": "You're already a subscriber.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "Account": {
+    "title": "My account",
+    "plan": "Subscription",
+    "noPlan": "You're on the free plan.",
+    "seePlans": "See plans",
+    "activePlan": "{plan, select, monthly {Monthly} other {Annual}} plan",
+    "renews": "Renews on {date}",
+    "validUntil": "Access until {date}",
+    "cardVia": "Card (Stripe)",
+    "pixVia": "Pix (Mercado Pago)",
+    "manageBilling": "Manage billing",
+    "renewPix": "Add more time",
+    "checkoutSuccess": "Payment received! Your subscription shows up here as soon as the provider confirms it (usually a few seconds).",
+    "favorites": "Favorites",
+    "noFavorites": "You haven't saved any dishes yet.",
+    "preferences": "Preferences",
+    "displayName": "Name",
+    "language": "Language",
+    "country": "Country",
+    "noCountry": "Select…",
+    "save": "Save",
+    "saved": "Preferences saved.",
+    "privacy": "Privacy and data",
+    "deleteTitle": "Delete account",
+    "deleteBody": "Deletes your profile, favorites and subscription history. If you pay by card, your subscription is canceled immediately. This can't be undone.",
+    "deleteConfirm": "Delete my account",
+    "cancel": "Cancel",
+    "deleted": "Your account has been deleted.",
+    "error": "Something went wrong. Please try again."
+  },
+  "Favorite": {
+    "add": "Save to favorites",
+    "remove": "Remove from favorites",
+    "signIn": "Sign in to save favorites",
+    "error": "We couldn't update your favorites."
+  },
+  "Legal": {
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "updated": "Last updated: {date}"
   }
 }

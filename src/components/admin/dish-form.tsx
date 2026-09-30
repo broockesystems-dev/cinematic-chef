@@ -21,7 +21,7 @@ import { ConfirmDelete } from "./confirm-delete";
 import { I18nField, toI18nValue } from "./i18n-field";
 import { ImageUpload } from "./image-upload";
 import { ACCESS_LABELS, DIFFICULTY_LABELS } from "./labels";
-import { NativeSelect } from "./native-select";
+import { NativeSelect } from "@/components/ui/native-select";
 import { fillMissingEnglish, useTranslator } from "./use-translator";
 
 type Props = { locations: LocationRow[]; dish?: AdminDish };

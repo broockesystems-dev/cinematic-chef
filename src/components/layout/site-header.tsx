@@ -16,6 +16,12 @@ export function SiteHeader() {
           The Cinematic Chef
         </Link>
         <nav aria-label={t("home")} className="flex items-center gap-2">
+          <Link
+            href="/pricing"
+            className="hidden px-2 text-sm text-muted-foreground hover:text-foreground sm:inline"
+          >
+            {t("pricing")}
+          </Link>
           <LocaleSwitcher />
           <UserMenu />
         </nav>

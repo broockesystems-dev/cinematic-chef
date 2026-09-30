@@ -132,3 +132,19 @@ export const getDishPage = cache(
     };
   },
 );
+
+/** Whether the visitor is signed in and has this dish in their favorites. */
+export async function getFavoriteState(
+  dishId: string,
+): Promise<{ signedIn: boolean; favorite: boolean }> {
+  const supabase = await createClient();
+  const { data } = await supabase.auth.getClaims();
+  if (!data?.claims) return { signedIn: false, favorite: false };
+  const { data: row } = await supabase
+    .from("favorites")
+    .select("dish_id")
+    .eq("user_id", data.claims.sub)
+    .eq("dish_id", dishId)
+    .maybeSingle();
+  return { signedIn: true, favorite: Boolean(row) };
+}

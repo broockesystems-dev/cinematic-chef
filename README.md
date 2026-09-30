@@ -79,6 +79,16 @@ Localmente, rode no SQL do banco (`psql postgresql://postgres:postgres@127.0.0.1
 
 ## Login
 
+- **Link mágico** por e-mail e **Google** (`/[locale]/login`). O formulário
+  informa que continuar significa aceitar os Termos e a Política de
+  Privacidade; a data fica em `profiles.terms_accepted_at`.
+- **Google:** crie um OAuth Client no Google Cloud com o redirect
+  `https://<projeto>.supabase.co/auth/v1/callback` e ative o provedor no painel
+  do Supabase (Authentication › Providers). Localmente, preencha
+  `SUPABASE_AUTH_GOOGLE_CLIENT_ID`/`SECRET` em `supabase/.env` e mude
+  `enabled = true` em `[auth.external.google]` no `supabase/config.toml`.
+
+
 Link mágico por e-mail (Supabase Auth). Localmente os e-mails não saem de
 verdade: abra o Mailpit em http://127.0.0.1:54324 para clicar no link. O
 callback fica em `/auth/callback` e só aceita redirecionar para caminhos do
@@ -151,6 +161,49 @@ garante o resto.
 - **Modo cozinha:** tela cheia, um passo por vez, texto grande, setas do
   teclado ou deslizar, ingredientes numa gaveta, tela sempre acesa (Wake Lock)
   e timers que continuam rodando entre passos, com som e vibração ao terminar.
+
+## Planos e pagamentos
+
+| | Brasil (perfil com país BR) | Resto do mundo |
+| --- | --- | --- |
+| Moeda | BRL | USD |
+| Provedor | Mercado Pago, Pix | Stripe, cartão |
+| Cobrança | À vista: cada pagamento libera 1 mês ou 1 ano; pagamentos seguidos somam tempo | Assinatura recorrente, cancelável no portal do Stripe |
+| Preço (em `src/lib/plans.ts`) | R$ 19,90/mês · R$ 199/ano | US$ 5,99/mês · US$ 59/ano |
+
+- O PDF deixava em aberto o Pix recorrente; ficou o Pix à vista por período,
+  como o próprio PDF sugere como alternativa. Dá para trocar por Pix
+  Automático no futuro sem mexer no controle de acesso.
+- **O acesso só é liberado pela tabela `subscriptions`**, que só os webhooks
+  escrevem (com a chave secreta), sempre depois de verificar a assinatura
+  do provedor. Voltar do checkout não libera nada.
+- **Stripe:** crie os Prices (USD) mensal e anual e coloque os IDs em
+  `STRIPE_PRICE_MONTHLY`/`STRIPE_PRICE_ANNUAL`. Em Developers › Webhooks,
+  aponte para `/api/webhooks/stripe` com os eventos
+  `checkout.session.completed` e `customer.subscription.created/updated/deleted`
+  e copie o segredo para `STRIPE_WEBHOOK_SECRET`. Ative o Customer Portal
+  (Settings › Billing › Customer portal).
+- **Mercado Pago:** use o Access Token de produção em
+  `MERCADOPAGO_ACCESS_TOKEN`. Em Suas integrações › Webhooks, aponte para
+  `/api/webhooks/mercadopago`, marque o evento *Pagamentos* e copie a
+  assinatura secreta para `MERCADOPAGO_WEBHOOK_SECRET`. O webhook confere a
+  assinatura, busca o pagamento na API, exige status `approved` e o valor do
+  plano, e é seguro contra reenvios.
+- `STRIPE_API_HOST/PORT` e `MERCADOPAGO_API_URL` existem só para testes locais
+  contra um servidor simulado; não defina em produção.
+
+## Área do usuário e LGPD
+
+- `/[locale]/account`: plano e validade, portal de pagamento (cartão) ou
+  "adicionar mais tempo" (Pix), favoritos, nome, idioma e país.
+- **Excluir conta:** cancela a assinatura no Stripe antes (se não conseguir,
+  não apaga, para ninguém ficar sendo cobrado sem conta) e depois apaga o
+  usuário; perfil, favoritos e assinaturas vão junto (cascade).
+- `/privacy` e `/terms` nos dois idiomas, com textos em
+  `src/content/legal.ts` e dados da empresa em `src/lib/site.ts`. **Revise os
+  textos com um advogado antes de lançar.**
+- Cookies: só os essenciais (sessão e idioma); o player do Mux roda sem
+  cookies de analytics.
 
 ## Idiomas
 

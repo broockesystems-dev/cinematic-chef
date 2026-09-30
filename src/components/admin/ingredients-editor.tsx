@@ -12,7 +12,7 @@ import { EditorFooter } from "./editor-footer";
 import { I18nField, toI18nValue } from "./i18n-field";
 import { UNIT_LABELS } from "./labels";
 import { ListItemControls } from "./list-item-controls";
-import { NativeSelect } from "./native-select";
+import { NativeSelect } from "@/components/ui/native-select";
 import { useListEditor } from "./use-list-editor";
 import {
   fillMissingEnglish,

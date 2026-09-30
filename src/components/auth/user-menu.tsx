@@ -1,7 +1,7 @@
 "use client";
 
 import type { User } from "@supabase/supabase-js";
-import { LogOut, Shield, UserRound } from "lucide-react";
+import { LogOut, Shield, Sparkles, UserRound } from "lucide-react";
 import NextLink from "next/link";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
@@ -67,6 +67,18 @@ export function UserMenu() {
           {user.email}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <Link href="/account">
+            <UserRound aria-hidden />
+            {t("account")}
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild className="sm:hidden">
+          <Link href="/pricing">
+            <Sparkles aria-hidden />
+            {t("pricing")}
+          </Link>
+        </DropdownMenuItem>
         {isAdmin && (
           <DropdownMenuItem asChild>
             {/* next/link, not the i18n Link: /admin is outside the locale routes. */}

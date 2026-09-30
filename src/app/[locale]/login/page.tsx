@@ -38,6 +38,14 @@ export default async function LoginPage({
           {t("linkError")}
         </p>
       )}
+      {error === "google" && (
+        <p
+          role="alert"
+          className="rounded-md border border-destructive/50 px-3 py-2 text-sm text-destructive"
+        >
+          {t("googleError")}
+        </p>
+      )}
       <LoginForm next={safeNextPath(next, `/${locale}`)} />
     </section>
   );

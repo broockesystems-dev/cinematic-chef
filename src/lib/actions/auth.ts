@@ -1,6 +1,7 @@
 "use server";
 
 import { getLocale } from "next-intl/server";
+import { redirect as nextRedirect } from "next/navigation";
 import { z } from "zod";
 import { redirect } from "@/i18n/navigation";
 import { publicEnv } from "@/lib/env";
@@ -44,6 +45,31 @@ export async function sendMagicLink(
     return { status: "error" };
   }
   return { status: "sent" };
+}
+
+/** Starts Google sign-in; Supabase redirects back to /auth/callback. */
+export async function signInWithGoogle(formData: FormData) {
+  const locale = await getLocale();
+  const callback = new URL("/auth/callback", publicEnv.siteUrl);
+  callback.searchParams.set(
+    "next",
+    safeNextPath(formData.get("next"), `/${locale}`),
+  );
+
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: { redirectTo: callback.toString() },
+  });
+  if (error || !data.url) {
+    console.error("google sign-in failed", error?.message);
+    redirect({
+      href: { pathname: "/login", query: { error: "google" } },
+      locale,
+    });
+    return;
+  }
+  nextRedirect(data.url);
 }
 
 export async function signOut() {

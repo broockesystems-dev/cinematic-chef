@@ -20,7 +20,7 @@ import { slugify } from "@/lib/slug";
 import { ConfirmDelete } from "./confirm-delete";
 import { I18nField, toI18nValue } from "./i18n-field";
 import { LOCATION_TYPE_LABELS } from "./labels";
-import { NativeSelect } from "./native-select";
+import { NativeSelect } from "@/components/ui/native-select";
 import { fillMissingEnglish, useTranslator } from "./use-translator";
 
 type Props = {

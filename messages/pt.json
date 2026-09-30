@@ -19,7 +19,8 @@
   "Footer": {
     "privacy": "Privacidade",
     "terms": "Termos de uso",
-    "rights": "Todos os direitos reservados."
+    "rights": "Todos os direitos reservados.",
+    "contact": "Contato"
   },
   "NotFound": {
     "title": "Página não encontrada",
@@ -37,7 +38,11 @@
       "invalid": "Digite um e-mail válido.",
       "rate_limited": "Muitas tentativas. Espere alguns minutos e tente de novo.",
       "error": "Não foi possível enviar o link agora. Tente de novo em instantes."
-    }
+    },
+    "google": "Continuar com Google",
+    "or": "ou",
+    "terms": "Ao continuar, você aceita os <terms>Termos de Uso</terms> e a <privacy>Política de Privacidade</privacy>.",
+    "googleError": "Não foi possível entrar com o Google agora. Use o link por e-mail."
   },
   "Dish": {
     "free": "Grátis",
@@ -137,5 +142,91 @@
     "collapsePanel": "Recolher lista",
     "pinLabel": "{place}: {count, plural, one {# prato} other {# pratos}}",
     "empty": "Os primeiros pratos chegam em breve."
+  },
+  "Pricing": {
+    "title": "Planos",
+    "subtitle": "Explore o globo de graça. Assine para cozinhar tudo.",
+    "free": {
+      "name": "Grátis",
+      "price": "R$ 0",
+      "cta": "Começar a explorar",
+      "features": [
+        "Globo e busca",
+        "Teasers de todos os pratos",
+        "Algumas receitas completas por país"
+      ]
+    },
+    "monthly": {
+      "name": "Mensal",
+      "period": "/mês"
+    },
+    "annual": {
+      "name": "Anual",
+      "period": "/ano",
+      "badge": "2 meses grátis"
+    },
+    "features": [
+      "Todas as receitas e vídeos completos",
+      "Modo cozinha com timers",
+      "Favoritos",
+      "Novos pratos toda semana"
+    ],
+    "subscribe": "Assinar",
+    "redirecting": "Abrindo o pagamento…",
+    "currencyBRL": "Valores em reais. Pagamento por Pix via Mercado Pago; cada pagamento libera o período escolhido, sem cobrança automática.",
+    "currencyUSD": "Valores em dólares americanos. Pagamento com cartão via Stripe, renovação automática, cancele quando quiser.",
+    "countryLabel": "Seu país",
+    "countryHint": "Define a moeda do pagamento.",
+    "alreadySubscribed": "Você já é assinante.",
+    "manage": "Ver minha assinatura",
+    "canceled": "Pagamento cancelado. Nada foi cobrado.",
+    "errors": {
+      "provider_error": "Não foi possível abrir o pagamento agora. Tente de novo.",
+      "rate_limited": "Muitas tentativas. Espere alguns minutos.",
+      "country_required": "Escolha seu país.",
+      "already_subscribed": "Você já é assinante.",
+      "generic": "Algo deu errado. Tente de novo."
+    }
+  },
+  "Account": {
+    "title": "Minha conta",
+    "plan": "Assinatura",
+    "noPlan": "Você está no plano grátis.",
+    "seePlans": "Ver planos",
+    "activePlan": "Plano {plan, select, monthly {mensal} other {anual}}",
+    "renews": "Renova em {date}",
+    "validUntil": "Acesso liberado até {date}",
+    "cardVia": "Cartão (Stripe)",
+    "pixVia": "Pix (Mercado Pago)",
+    "manageBilling": "Gerenciar pagamento",
+    "renewPix": "Adicionar mais tempo",
+    "checkoutSuccess": "Pagamento recebido! Sua assinatura aparece aqui assim que o provedor confirmar (costuma levar alguns segundos).",
+    "favorites": "Favoritos",
+    "noFavorites": "Você ainda não salvou nenhum prato.",
+    "preferences": "Preferências",
+    "displayName": "Nome",
+    "language": "Idioma",
+    "country": "País",
+    "noCountry": "Selecione…",
+    "save": "Salvar",
+    "saved": "Preferências salvas.",
+    "privacy": "Privacidade e dados",
+    "deleteTitle": "Excluir conta",
+    "deleteBody": "Apaga seu perfil, favoritos e histórico de assinatura. Se você paga com cartão, a assinatura é cancelada na hora. Não dá para desfazer.",
+    "deleteConfirm": "Excluir minha conta",
+    "cancel": "Cancelar",
+    "deleted": "Sua conta foi excluída.",
+    "error": "Algo deu errado. Tente de novo."
+  },
+  "Favorite": {
+    "add": "Salvar nos favoritos",
+    "remove": "Remover dos favoritos",
+    "signIn": "Entre para salvar favoritos",
+    "error": "Não foi possível atualizar seus favoritos."
+  },
+  "Legal": {
+    "privacy": "Política de Privacidade",
+    "terms": "Termos de Uso",
+    "updated": "Última atualização: {date}"
   }
 }

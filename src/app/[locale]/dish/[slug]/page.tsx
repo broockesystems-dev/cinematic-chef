@@ -5,12 +5,13 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Clock, Gauge, Users } from "lucide-react";
 import { AccessBadge } from "@/components/dish/access-badge";
 import { DishVideo } from "@/components/dish/dish-video";
+import { FavoriteButton } from "@/components/dish/favorite-button";
 import { LockedRecipe } from "@/components/dish/locked-recipe";
 import { Recipe } from "@/components/dish/recipe";
 import type { RecipeIngredient, RecipeStep } from "@/components/dish/types";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
-import { getDishPage } from "@/lib/dishes";
+import { getDishPage, getFavoriteState } from "@/lib/dishes";
 import { explorePath } from "@/lib/explore";
 import { formatMinutes } from "@/lib/format";
 import { localize } from "@/lib/i18n-text";
@@ -43,6 +44,7 @@ export default async function DishPage({
   if (!data) notFound();
   const { dish, path, hasAccess } = data;
   const t = await getTranslations("Dish");
+  const favoriteState = await getFavoriteState(dish.id);
 
   const name = localize(dish.name, locale);
   const story = localize(dish.story, locale);
@@ -125,6 +127,11 @@ export default async function DishPage({
           </h1>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
             <AccessBadge access={dish.access} />
+            <FavoriteButton
+              dishId={dish.id}
+              initialFavorite={favoriteState.favorite}
+              signedIn={favoriteState.signedIn}
+            />
             <dl className="flex flex-wrap gap-x-6 gap-y-2 text-muted-foreground">
               {dish.prep_minutes && (
                 <div className="flex items-center gap-1.5">
