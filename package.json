@@ -11,10 +11,14 @@
     "db:start": "supabase start",
     "db:stop": "supabase stop",
     "db:reset": "supabase db reset",
-    "db:types": "supabase gen types typescript --local > src/lib/supabase/database.types.ts && prettier --write src/lib/supabase/database.types.ts",
-    "db:test": "supabase test db"
+    "db:types": "supabase gen types typescript --local > .types.tmp && mv .types.tmp src/lib/supabase/database.types.ts && prettier --write src/lib/supabase/database.types.ts || (rm -f .types.tmp && exit 1)",
+    "db:test": "supabase test db",
+    "format": "prettier --write ."
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.130.0",
+    "@mux/mux-node": "^15.4.0",
+    "@mux/upchunk": "^3.5.0",
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.117.2",
     "class-variance-authority": "^0.7.1",
@@ -27,7 +31,8 @@
     "react-dom": "19.2.8",
     "server-only": "^0.0.1",
     "sonner": "^2.0.8",
-    "tailwind-merge": "^3.7.0"
+    "tailwind-merge": "^3.7.0",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

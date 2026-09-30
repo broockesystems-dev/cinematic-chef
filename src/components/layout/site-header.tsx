@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { UserMenu } from "@/components/auth/user-menu";
 import { LocaleSwitcher } from "./locale-switcher";
 
 export function SiteHeader() {
@@ -16,6 +17,7 @@ export function SiteHeader() {
         </Link>
         <nav aria-label={t("home")} className="flex items-center gap-2">
           <LocaleSwitcher />
+          <UserMenu />
         </nav>
       </div>
     </header>

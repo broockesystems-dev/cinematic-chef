@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -8,10 +7,8 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { Toaster } from "@/components/ui/sonner";
 import { routing, type Locale } from "@/i18n/routing";
 import { publicEnv } from "@/lib/env";
+import { fontVariables } from "../fonts";
 import "../globals.css";
-
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces" });
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -46,7 +43,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale === "pt" ? "pt-BR" : "en"}
-      className={`dark ${inter.variable} ${fraunces.variable} h-full antialiased`}
+      className={`dark ${fontVariables} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col font-sans">
         <NextIntlClientProvider>

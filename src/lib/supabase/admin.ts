@@ -9,7 +9,11 @@ import { serverEnv } from "@/lib/env.server";
  * never use it to serve content to a user.
  */
 export function createAdminClient() {
-  return createClient<Database>(publicEnv.supabaseUrl, serverEnv("SUPABASE_SECRET_KEY"), {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
+  return createClient<Database>(
+    publicEnv.supabaseUrl,
+    serverEnv("SUPABASE_SECRET_KEY"),
+    {
+      auth: { persistSession: false, autoRefreshToken: false },
+    },
+  );
 }

@@ -396,6 +396,18 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      admin_replace_ingredients: {
+        Args: { p_dish_id: string; p_items: Json };
+        Returns: undefined;
+      };
+      admin_replace_steps: {
+        Args: { p_dish_id: string; p_items: Json };
+        Returns: undefined;
+      };
+      check_rate_limit: {
+        Args: { p_key: string; p_limit: number; p_window_seconds: number };
+        Returns: boolean;
+      };
       f_unaccent: { Args: { "": string }; Returns: string };
       has_access: { Args: { p_dish_id: string }; Returns: boolean };
       has_active_subscription: {

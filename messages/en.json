@@ -7,7 +7,9 @@
     "home": "Home",
     "pricing": "Pricing",
     "account": "My account",
-    "signIn": "Sign in"
+    "signIn": "Sign in",
+    "admin": "Admin panel",
+    "signOut": "Sign out"
   },
   "LocaleSwitcher": {
     "label": "Language",
@@ -28,5 +30,19 @@
   "NotFound": {
     "title": "Page not found",
     "back": "Back to home"
+  },
+  "Login": {
+    "title": "Sign in",
+    "subtitle": "We'll email you a sign-in link. No password needed.",
+    "email": "Email",
+    "submit": "Email me a sign-in link",
+    "sending": "Sending…",
+    "sent": "Done! Open the link we sent to your email to sign in.",
+    "linkError": "That link has expired or was already used. Request a new one below.",
+    "errors": {
+      "invalid": "Enter a valid email address.",
+      "rate_limited": "Too many attempts. Wait a few minutes and try again.",
+      "error": "We couldn't send the link right now. Please try again shortly."
+    }
   }
 }

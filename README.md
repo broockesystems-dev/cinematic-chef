@@ -76,6 +76,38 @@ where id = (select id from auth.users where email = 'voce@exemplo.com');
 
 Localmente, rode no SQL do banco (`psql postgresql://postgres:postgres@127.0.0.1:54322/postgres`).
 
+## Login
+
+Link mágico por e-mail (Supabase Auth). Localmente os e-mails não saem de
+verdade: abra o Mailpit em http://127.0.0.1:54324 para clicar no link. O
+callback fica em `/auth/callback` e só aceita redirecionar para caminhos do
+próprio site.
+
+## Painel admin (`/admin`)
+
+Só para `role = 'admin'`; qualquer outro usuário recebe 404. O papel é checado
+no layout, de novo em cada server action e rota de API, e o RLS do banco
+garante o resto.
+
+- **Lugares:** árvore continente › país › cidade › bairro. "Adicionar cidade"
+  num país já abre o formulário com o pai escolhido.
+- **Pratos:** dados, capa, acesso (grátis/assinantes), status e data de
+  publicação (horário de Brasília; data futura agenda). Abas de ingredientes
+  (métrico e americano, aceita vírgula decimal), passos (timer e foto) e
+  vídeos.
+- **Traduzir com IA:** cada campo tem um botão "Traduzir" (PT → EN) e cada
+  formulário tem "Traduzir campos vazios", que só preenche o que está vazio
+  para não sobrescrever uma tradução revisada. Usa a API do Claude no servidor
+  (`src/lib/ai.ts`), limitada a 30 pedidos por minuto por admin.
+- **Vídeos:** o navegador envia o arquivo direto ao Mux (upload direto, sem
+  passar pelo servidor). O teaser é público; o vídeo completo é criado com
+  política `signed`. O Mux avisa em `/api/webhooks/mux` quando o vídeo fica
+  pronto; configure esse endereço no painel do Mux (Settings › Webhooks) e
+  copie o segredo para `MUX_WEBHOOK_SECRET`.
+- **Legendas:** arquivos `.vtt` vão para o bucket `media` e são enviados ao Mux
+  como faixas de legenda quando o vídeo está pronto (o Mux precisa baixar o
+  arquivo, então isso só acontece com o Supabase na nuvem, não em localhost).
+
 ## Idiomas
 
 `/` redireciona para `/pt` ou `/en` conforme o cookie `NEXT_LOCALE` (salvo pelo
