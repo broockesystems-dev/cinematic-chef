@@ -10,7 +10,8 @@
     "signIn": "Entrar",
     "admin": "Painel admin",
     "signOut": "Sair",
-    "skip": "Pular para o conteúdo"
+    "skip": "Pular para o conteúdo",
+    "passport": "Meu passaporte"
   },
   "LocaleSwitcher": {
     "label": "Idioma",
@@ -262,5 +263,62 @@
     "you": "Você",
     "chef": "Chef",
     "stop": "Parar resposta"
+  },
+  "Passport": {
+    "title": "Meu passaporte",
+    "publicTitle": "Passaporte de {name}",
+    "cooked": "Fiz este prato",
+    "cookedDone": "Prato carimbado",
+    "addPhoto": "Adicionar foto",
+    "changePhoto": "Trocar foto",
+    "remove": "Remover do passaporte",
+    "dialogTitle": "Você fez {dish}!",
+    "dialogBody": "Mande uma foto do seu prato para o passaporte (opcional).",
+    "choosePhoto": "Escolher foto",
+    "save": "Carimbar",
+    "saving": "Carimbando…",
+    "newStamp": "Carimbo novo: {country}! 🎉",
+    "stamped": "Prato adicionado ao seu passaporte.",
+    "signIn": "Entre para carimbar seu passaporte",
+    "stats": "{dishes, plural, =0 {Nenhum prato ainda} one {# prato} other {# pratos}} · {countries, plural, =0 {nenhum país} one {# país} other {# países}}",
+    "stamps": "Carimbos",
+    "noStamps": "Cozinhe seu primeiro prato e marque \"Fiz este prato\" para ganhar um carimbo.",
+    "stampCount": "{count, plural, one {# prato} other {# pratos}}",
+    "achievements": "Conquistas",
+    "gallery": "Pratos que fiz",
+    "explore": "Explorar pratos",
+    "achievement": {
+      "first_dish": "Primeiro prato",
+      "five_dishes": "5 pratos",
+      "ten_dishes": "10 pratos",
+      "three_countries": "3 países",
+      "three_continents": "3 continentes",
+      "country_master": "Mestre de um país"
+    },
+    "achievementHint": {
+      "first_dish": "Cozinhe seu primeiro prato",
+      "five_dishes": "Cozinhe 5 pratos",
+      "ten_dishes": "Cozinhe 10 pratos",
+      "three_countries": "Cozinhe pratos de 3 países",
+      "three_continents": "Cozinhe pratos de 3 continentes",
+      "country_master": "Cozinhe 5 pratos do mesmo país"
+    },
+    "progress": "{progress} de {goal}",
+    "share": "Compartilhar passaporte",
+    "username": "Nome de usuário",
+    "usernameHint": "Letras minúsculas, números e _ (3 a 30).",
+    "public": "Passaporte público",
+    "publicHint": "Qualquer pessoa com o link vê seus carimbos e fotos.",
+    "link": "Seu link",
+    "saved": "Configurações salvas.",
+    "errors": {
+      "username_taken": "Esse nome de usuário já existe.",
+      "username_invalid": "Nome de usuário inválido.",
+      "username_required": "Escolha um nome de usuário para deixar o passaporte público.",
+      "forbidden": "Você precisa ter acesso a este prato.",
+      "generic": "Algo deu errado. Tente de novo.",
+      "photo": "Não foi possível enviar a foto."
+    },
+    "saveSettings": "Salvar"
   }
 }

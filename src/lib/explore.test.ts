@@ -20,6 +20,7 @@ const loc = (
   name: { pt: slug },
   lat: 0,
   lng: 0,
+  isoCode: null,
 });
 const rows = [
   loc("eu", null, "continent", "europe"),

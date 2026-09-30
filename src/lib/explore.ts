@@ -9,6 +9,7 @@ export type ExploreLocation = {
   slug: string;
   lat: number;
   lng: number;
+  isoCode: string | null;
   /** Published dishes in this place and everything below it. */
   dishCount: number;
   freeCount: number;

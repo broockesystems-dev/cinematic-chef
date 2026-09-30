@@ -1,7 +1,7 @@
 "use client";
 
 import type { User } from "@supabase/supabase-js";
-import { LogOut, Shield, Sparkles, UserRound } from "lucide-react";
+import { LogOut, Shield, Sparkles, Stamp, UserRound } from "lucide-react";
 import NextLink from "next/link";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
@@ -80,6 +80,12 @@ export function UserMenu() {
           <Link href="/account">
             <UserRound aria-hidden />
             {t("account")}
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/passport">
+            <Stamp aria-hidden />
+            {t("passport")}
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild className="sm:hidden">

@@ -98,6 +98,16 @@ export async function deleteAccount(): Promise<Result> {
     return { ok: false, error: "billing" };
   }
 
+  // Passport photos live in storage, outside the database cascade.
+  const { data: photos } = await admin.storage
+    .from("cooked")
+    .list(user.id, { limit: 1000 });
+  if (photos?.length) {
+    await admin.storage
+      .from("cooked")
+      .remove(photos.map((photo) => `${user.id}/${photo.name}`));
+  }
+
   const { error } = await admin.auth.admin.deleteUser(user.id);
   if (error) return { ok: false, error: "failed" };
 

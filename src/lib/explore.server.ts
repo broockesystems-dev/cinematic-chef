@@ -14,7 +14,7 @@ export const getExploreData = cache(async (): Promise<ExploreData> => {
   const [locations, dishes] = await Promise.all([
     supabase
       .from("locations")
-      .select("id, parent_id, type, name, slug, lat, lng"),
+      .select("id, parent_id, type, name, slug, lat, lng, iso_code"),
     supabase
       .from("dishes")
       .select(
@@ -34,6 +34,7 @@ export const getExploreData = cache(async (): Promise<ExploreData> => {
       slug: l.slug,
       lat: l.lat,
       lng: l.lng,
+      isoCode: l.iso_code,
     })),
     dishes.data.map((d): ExploreDish => ({
       id: d.id,

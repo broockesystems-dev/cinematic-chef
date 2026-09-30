@@ -10,7 +10,8 @@
     "signIn": "Sign in",
     "admin": "Admin panel",
     "signOut": "Sign out",
-    "skip": "Skip to content"
+    "skip": "Skip to content",
+    "passport": "My passport"
   },
   "LocaleSwitcher": {
     "label": "Language",
@@ -262,5 +263,62 @@
     "you": "You",
     "chef": "Chef",
     "stop": "Stop reply"
+  },
+  "Passport": {
+    "title": "My passport",
+    "publicTitle": "{name}'s passport",
+    "cooked": "I cooked this",
+    "cookedDone": "Dish stamped",
+    "addPhoto": "Add photo",
+    "changePhoto": "Change photo",
+    "remove": "Remove from passport",
+    "dialogTitle": "You made {dish}!",
+    "dialogBody": "Add a photo of your dish to your passport (optional).",
+    "choosePhoto": "Choose photo",
+    "save": "Stamp it",
+    "saving": "Stamping…",
+    "newStamp": "New stamp: {country}! 🎉",
+    "stamped": "Dish added to your passport.",
+    "signIn": "Sign in to stamp your passport",
+    "stats": "{dishes, plural, =0 {No dishes yet} one {# dish} other {# dishes}} · {countries, plural, =0 {no countries} one {# country} other {# countries}}",
+    "stamps": "Stamps",
+    "noStamps": "Cook your first dish and tap \"I cooked this\" to earn a stamp.",
+    "stampCount": "{count, plural, one {# dish} other {# dishes}}",
+    "achievements": "Achievements",
+    "gallery": "Dishes I made",
+    "explore": "Explore dishes",
+    "achievement": {
+      "first_dish": "First dish",
+      "five_dishes": "5 dishes",
+      "ten_dishes": "10 dishes",
+      "three_countries": "3 countries",
+      "three_continents": "3 continents",
+      "country_master": "Country master"
+    },
+    "achievementHint": {
+      "first_dish": "Cook your first dish",
+      "five_dishes": "Cook 5 dishes",
+      "ten_dishes": "Cook 10 dishes",
+      "three_countries": "Cook dishes from 3 countries",
+      "three_continents": "Cook dishes from 3 continents",
+      "country_master": "Cook 5 dishes from one country"
+    },
+    "progress": "{progress} of {goal}",
+    "share": "Share your passport",
+    "username": "Username",
+    "usernameHint": "Lowercase letters, numbers and _ (3 to 30).",
+    "public": "Public passport",
+    "publicHint": "Anyone with the link can see your stamps and photos.",
+    "link": "Your link",
+    "saved": "Settings saved.",
+    "errors": {
+      "username_taken": "That username is taken.",
+      "username_invalid": "Invalid username.",
+      "username_required": "Pick a username to make your passport public.",
+      "forbidden": "You need access to this dish.",
+      "generic": "Something went wrong. Please try again.",
+      "photo": "We couldn't upload the photo."
+    },
+    "saveSettings": "Save"
   }
 }

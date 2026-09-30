@@ -79,6 +79,45 @@ export type Database = {
           },
         ];
       };
+      cooked_dishes: {
+        Row: {
+          created_at: string;
+          dish_id: string;
+          id: string;
+          photo_path: string | null;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          dish_id: string;
+          id?: string;
+          photo_path?: string | null;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          dish_id?: string;
+          id?: string;
+          photo_path?: string | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "cooked_dishes_dish_id_fkey";
+            columns: ["dish_id"];
+            isOneToOne: false;
+            referencedRelation: "dishes";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "cooked_dishes_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       dishes: {
         Row: {
           access: Database["public"]["Enums"]["dish_access"];
@@ -275,9 +314,11 @@ export type Database = {
           display_name: string | null;
           id: string;
           locale: string;
+          passport_public: boolean;
           role: Database["public"]["Enums"]["user_role"];
           terms_accepted_at: string;
           updated_at: string;
+          username: string | null;
         };
         Insert: {
           country?: string | null;
@@ -285,9 +326,11 @@ export type Database = {
           display_name?: string | null;
           id: string;
           locale?: string;
+          passport_public?: boolean;
           role?: Database["public"]["Enums"]["user_role"];
           terms_accepted_at?: string;
           updated_at?: string;
+          username?: string | null;
         };
         Update: {
           country?: string | null;
@@ -295,9 +338,11 @@ export type Database = {
           display_name?: string | null;
           id?: string;
           locale?: string;
+          passport_public?: boolean;
           role?: Database["public"]["Enums"]["user_role"];
           terms_accepted_at?: string;
           updated_at?: string;
+          username?: string | null;
         };
         Relationships: [];
       };
@@ -468,6 +513,14 @@ export type Database = {
       is_i18n_text: {
         Args: { required?: boolean; value: Json };
         Returns: boolean;
+      };
+      public_passport: {
+        Args: { p_username: string };
+        Returns: {
+          display_name: string;
+          user_id: string;
+          username: string;
+        }[];
       };
       search_catalog: {
         Args: { p_limit?: number; p_query: string };

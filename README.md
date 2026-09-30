@@ -39,8 +39,8 @@ npm run dev               # http://localhost:3000
 
 | Comando | O que cobre |
 | --- | --- |
-| `npm run db:test` | 54 testes pgTAP: RLS (visitante, grátis, assinante, vencido, admin), integridade, busca, rate limit, RPCs do admin e mensagens do Chef IA |
-| `npm test` | 27 testes Vitest: medidas e frações, porções, formatos de tempo, árvore do explorador |
+| `npm run db:test` | 65 testes pgTAP: RLS (visitante, grátis, assinante, vencido, admin), integridade, busca, rate limit, RPCs do admin, Chef IA e passaporte |
+| `npm test` | 31 testes Vitest: medidas e frações, porções, formatos de tempo, árvore do explorador, carimbos e conquistas |
 | `npm run typecheck` / `npm run lint` | Tipos (inclusive das rotas e das mensagens de i18n) e ESLint |
 
 ## Estrutura
@@ -186,6 +186,19 @@ garante o resto.
 - Modelo `claude-opus-5-5` via API do Claude, só no servidor, com fallback
   automático se um filtro de segurança recusar. Conversas ficam por prato até
   o usuário limpar ou excluir a conta (constam na Política de Privacidade).
+
+## Passaporte gastronômico (fase 3)
+
+- **Fiz este prato** na página do prato (só em pratos que a pessoa pode abrir),
+  com foto opcional. Cada país vira um **carimbo**; conquistas: primeiro prato,
+  5 e 10 pratos, 3 países, 3 continentes e "mestre de um país" (5 pratos do
+  mesmo país). Tudo é calculado a partir de `cooked_dishes`.
+- `/passport` mostra carimbos, conquistas e a galeria. O usuário pode escolher
+  um nome e deixar o passaporte **público** em `/passport/<nome>` (sem
+  indexação em buscadores).
+- **Fotos** ficam no bucket privado `cooked`, na pasta do próprio usuário; são
+  exibidas por URLs assinadas de 1 hora, e o passaporte público só é lido
+  quando o dono ativou. Excluir a conta apaga as fotos também.
 
 ## Planos e pagamentos
 

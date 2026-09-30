@@ -10,12 +10,14 @@ import { AccessBadge } from "@/components/dish/access-badge";
 import { DishVideo } from "@/components/dish/dish-video";
 import { FavoriteButton } from "@/components/dish/favorite-button";
 import { LockedRecipe } from "@/components/dish/locked-recipe";
+import { CookedButton } from "@/components/passport/cooked-button";
 import { Recipe } from "@/components/dish/recipe";
 import { RecipeJsonLd } from "@/components/dish/recipe-json-ld";
 import type { RecipeIngredient, RecipeStep } from "@/components/dish/types";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { getChefState } from "@/lib/chef-state";
+import { getCookedState } from "@/lib/passport.server";
 import { getDishPage, getFavoriteState } from "@/lib/dishes";
 import { explorePath } from "@/lib/explore";
 import { formatMinutes } from "@/lib/format";
@@ -50,9 +52,10 @@ export default async function DishPage({
   if (!data) notFound();
   const { dish, path, hasAccess } = data;
   const t = await getTranslations("Dish");
-  const [favoriteState, chefState] = await Promise.all([
+  const [favoriteState, chefState, cookedState] = await Promise.all([
     getFavoriteState(dish.id),
     getChefState(dish.id),
+    getCookedState(dish.id),
   ]);
 
   const name = localize(dish.name, locale);
@@ -149,6 +152,13 @@ export default async function DishPage({
                 signedIn={favoriteState.signedIn}
               />
               <ChefButton />
+              {hasAccess && (
+                <CookedButton
+                  dishId={dish.id}
+                  dishName={name.text}
+                  state={cookedState}
+                />
+              )}
               <dl className="flex flex-wrap gap-x-6 gap-y-2 text-muted-foreground">
                 {dish.prep_minutes && (
                   <div className="flex items-center gap-1.5">
