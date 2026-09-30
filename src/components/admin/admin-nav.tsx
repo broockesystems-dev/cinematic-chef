@@ -11,6 +11,7 @@ const LINKS = [
   { href: "/admin", label: "Painel" },
   { href: "/admin/locations", label: "Lugares" },
   { href: "/admin/dishes", label: "Pratos" },
+  { href: "/admin/polls", label: "Votações" },
 ];
 
 export function AdminNav({ email }: { email: string | null }) {

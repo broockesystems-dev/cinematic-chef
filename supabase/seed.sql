@@ -118,3 +118,14 @@ insert into public.steps (dish_id, position, title, text, timer_seconds) values
   ('50000000-0000-0000-0000-000000000003', 3, '{"pt": "Queijo", "en": "Cheese"}', '{"pt": "Junte o queijo e sove até a massa ficar lisa e desgrudar das mãos.", "en": "Add the cheese and knead until the dough is smooth and no longer sticks to your hands."}', null),
   ('50000000-0000-0000-0000-000000000003', 4, '{"pt": "Bolear", "en": "Shape"}', '{"pt": "Preaqueça o forno a 180 °C. Com as mãos untadas, faça bolinhas de uns 3 cm e disponha numa assadeira com espaço entre elas.", "en": "Preheat the oven to 350 °F. With oiled hands, roll 1¼-inch balls and space them out on a baking sheet."}', null),
   ('50000000-0000-0000-0000-000000000003', 5, '{"pt": "Assar", "en": "Bake"}', '{"pt": "Asse até crescerem e dourarem por baixo. Sirva quente.", "en": "Bake until puffed and golden underneath. Serve warm."}', 1800);
+
+-- ---------------------------------------------------------------------------
+-- Next-destination vote (open for the current month in local dev)
+-- ---------------------------------------------------------------------------
+insert into public.polls (id, month, status, closes_at) values
+  ('80000000-0000-0000-0000-000000000001', date_trunc('month', now())::date, 'open', date_trunc('month', now()) + interval '1 month' - interval '1 second');
+
+insert into public.poll_options (poll_id, position, dish_name, description) values
+  ('80000000-0000-0000-0000-000000000001', 0, '{"pt": "Ramen de Tóquio", "en": "Tokyo ramen"}', '{"pt": "Caldo de horas, macarrão fresco e o ritual das casas de ramen do Japão.", "en": "Hours-long broth, fresh noodles and the ritual of Japan''s ramen shops."}'),
+  ('80000000-0000-0000-0000-000000000001', 1, '{"pt": "Khachapuri da Geórgia", "en": "Georgian khachapuri"}', '{"pt": "O pão em forma de barco com queijo derretido e gema, direto de Tbilisi.", "en": "The boat-shaped bread with molten cheese and egg yolk, straight from Tbilisi."}'),
+  ('80000000-0000-0000-0000-000000000001', 2, '{"pt": "Moqueca capixaba", "en": "Moqueca from Espírito Santo"}', '{"pt": "Peixe cozido na panela de barro, com urucum e sem dendê.", "en": "Fish stewed in a clay pot with annatto and no palm oil."}');

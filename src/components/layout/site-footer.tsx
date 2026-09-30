@@ -21,6 +21,11 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
+              <Link href="/vote" className="hover:text-foreground">
+                {tHeader("vote")}
+              </Link>
+            </li>
+            <li>
               <Link href="/privacy" className="hover:text-foreground">
                 {tLegal("privacy")}
               </Link>

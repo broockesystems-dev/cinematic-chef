@@ -307,6 +307,89 @@ export type Database = {
           },
         ];
       };
+      poll_options: {
+        Row: {
+          description: Json | null;
+          dish_name: NonNullable<Json>;
+          id: string;
+          image_url: string | null;
+          location_id: string | null;
+          poll_id: string;
+          position: number;
+        };
+        Insert: {
+          description?: Json | null;
+          dish_name: NonNullable<Json>;
+          id?: string;
+          image_url?: string | null;
+          location_id?: string | null;
+          poll_id: string;
+          position: number;
+        };
+        Update: {
+          description?: Json | null;
+          dish_name?: NonNullable<Json>;
+          id?: string;
+          image_url?: string | null;
+          location_id?: string | null;
+          poll_id?: string;
+          position?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "poll_options_location_id_fkey";
+            columns: ["location_id"];
+            isOneToOne: false;
+            referencedRelation: "locations";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "poll_options_poll_id_fkey";
+            columns: ["poll_id"];
+            isOneToOne: false;
+            referencedRelation: "polls";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      polls: {
+        Row: {
+          closes_at: string;
+          created_at: string;
+          id: string;
+          month: string;
+          status: Database["public"]["Enums"]["poll_status"];
+          updated_at: string;
+          winner_option_id: string | null;
+        };
+        Insert: {
+          closes_at: string;
+          created_at?: string;
+          id?: string;
+          month: string;
+          status?: Database["public"]["Enums"]["poll_status"];
+          updated_at?: string;
+          winner_option_id?: string | null;
+        };
+        Update: {
+          closes_at?: string;
+          created_at?: string;
+          id?: string;
+          month?: string;
+          status?: Database["public"]["Enums"]["poll_status"];
+          updated_at?: string;
+          winner_option_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "polls_winner_fkey";
+            columns: ["winner_option_id", "id"];
+            isOneToOne: false;
+            referencedRelation: "poll_options";
+            referencedColumns: ["id", "poll_id"];
+          },
+        ];
+      };
       profiles: {
         Row: {
           country: string | null;
@@ -484,6 +567,49 @@ export type Database = {
           },
         ];
       };
+      votes: {
+        Row: {
+          created_at: string;
+          option_id: string;
+          poll_id: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          option_id: string;
+          poll_id: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          option_id?: string;
+          poll_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "votes_option_id_poll_id_fkey";
+            columns: ["option_id", "poll_id"];
+            isOneToOne: false;
+            referencedRelation: "poll_options";
+            referencedColumns: ["id", "poll_id"];
+          },
+          {
+            foreignKeyName: "votes_poll_id_fkey";
+            columns: ["poll_id"];
+            isOneToOne: false;
+            referencedRelation: "polls";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "votes_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
     };
     Views: {
       [_ in never]: never;
@@ -514,6 +640,14 @@ export type Database = {
         Args: { required?: boolean; value: Json };
         Returns: boolean;
       };
+      poll_accepts_votes: { Args: { p_poll_id: string }; Returns: boolean };
+      poll_results: {
+        Args: { p_poll_id: string };
+        Returns: {
+          option_id: string;
+          votes: number;
+        }[];
+      };
       public_passport: {
         Args: { p_username: string };
         Returns: {
@@ -541,6 +675,7 @@ export type Database = {
       dish_status: "draft" | "published";
       location_type: "continent" | "country" | "city" | "neighborhood";
       payment_provider: "stripe" | "mercadopago";
+      poll_status: "draft" | "open" | "closed";
       subscription_plan: "monthly" | "annual";
       subscription_status:
         | "incomplete"
@@ -688,6 +823,7 @@ export const Constants = {
       dish_status: ["draft", "published"],
       location_type: ["continent", "country", "city", "neighborhood"],
       payment_provider: ["stripe", "mercadopago"],
+      poll_status: ["draft", "open", "closed"],
       subscription_plan: ["monthly", "annual"],
       subscription_status: [
         "incomplete",

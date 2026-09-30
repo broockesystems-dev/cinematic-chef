@@ -11,7 +11,8 @@
     "admin": "Admin panel",
     "signOut": "Sign out",
     "skip": "Skip to content",
-    "passport": "My passport"
+    "passport": "My passport",
+    "vote": "Vote"
   },
   "LocaleSwitcher": {
     "label": "Language",
@@ -171,6 +172,7 @@
       "Every recipe and full video",
       "Cook mode with timers",
       "AI Chef: adapts recipes to your country and answers questions",
+      "Vote on each month's next destination",
       "Favorites",
       "New dishes every week"
     ],
@@ -320,5 +322,28 @@
       "photo": "We couldn't upload the photo."
     },
     "saveSettings": "Save"
+  },
+  "Vote": {
+    "title": "Vote for the next destination",
+    "subtitle": "Every month, subscribers pick the next dish to become a video on @thecinematic.chef.",
+    "closes": "Voting open until {date}",
+    "vote": "Vote",
+    "voted": "Your vote",
+    "changeVote": "Switch to this",
+    "results": "{count, plural, =0 {No votes} one {# vote} other {# votes}}",
+    "resultsHidden": "Results appear after you vote.",
+    "subscribersOnly": "Only subscribers can vote.",
+    "seePlans": "See plans",
+    "signIn": "Sign in to vote",
+    "none": "No vote is open right now. Check back at the start of the month!",
+    "past": "Chosen destinations",
+    "winner": "Winner",
+    "noWinner": "No votes",
+    "thanks": "Vote recorded!",
+    "errors": {
+      "forbidden": "Only subscribers can vote.",
+      "closed": "This vote has closed.",
+      "generic": "We couldn't record your vote."
+    }
   }
 }

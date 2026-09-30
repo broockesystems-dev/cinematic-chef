@@ -39,7 +39,7 @@ npm run dev               # http://localhost:3000
 
 | Comando | O que cobre |
 | --- | --- |
-| `npm run db:test` | 65 testes pgTAP: RLS (visitante, grátis, assinante, vencido, admin), integridade, busca, rate limit, RPCs do admin, Chef IA e passaporte |
+| `npm run db:test` | 77 testes pgTAP: RLS (visitante, grátis, assinante, vencido, admin), integridade, busca, rate limit, RPCs do admin, Chef IA, passaporte e votação |
 | `npm test` | 31 testes Vitest: medidas e frações, porções, formatos de tempo, árvore do explorador, carimbos e conquistas |
 | `npm run typecheck` / `npm run lint` | Tipos (inclusive das rotas e das mensagens de i18n) e ESLint |
 
@@ -199,6 +199,20 @@ garante o resto.
 - **Fotos** ficam no bucket privado `cooked`, na pasta do próprio usuário; são
   exibidas por URLs assinadas de 1 hora, e o passaporte público só é lido
   quando o dono ativou. Excluir a conta apaga as fotos também.
+
+## Votação do próximo destino (fase 3)
+
+- `/vote`: a votação aberta do mês com 3 a 5 pratos candidatos. **Só
+  assinantes votam** (um voto por votação, que pode ser trocado enquanto está
+  aberta); os resultados aparecem depois que a pessoa vota ou quando a votação
+  fecha, para não influenciar. Abaixo, os destinos já escolhidos.
+- Admin em `/admin/polls`: criar a votação do mês como rascunho, adicionar as
+  opções (com tradução por IA e imagem), abrir e depois **Encerrar e definir
+  vencedor**. As opções travam quando a votação abre, para nenhum voto se
+  perder.
+- O banco garante as regras (RLS e chaves): só assinante, só votação aberta e
+  dentro do prazo, um voto por pessoa e nunca numa opção de outra votação.
+- Datas e prazos são exibidos no horário de Brasília (configurado no next-intl).
 
 ## Planos e pagamentos
 

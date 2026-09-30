@@ -11,7 +11,8 @@
     "admin": "Painel admin",
     "signOut": "Sair",
     "skip": "Pular para o conteúdo",
-    "passport": "Meu passaporte"
+    "passport": "Meu passaporte",
+    "vote": "Votação"
   },
   "LocaleSwitcher": {
     "label": "Idioma",
@@ -171,6 +172,7 @@
       "Todas as receitas e vídeos completos",
       "Modo cozinha com timers",
       "Chef IA: adapta a receita ao seu país e tira dúvidas",
+      "Voto no próximo destino do mês",
       "Favoritos",
       "Novos pratos toda semana"
     ],
@@ -320,5 +322,28 @@
       "photo": "Não foi possível enviar a foto."
     },
     "saveSettings": "Salvar"
+  },
+  "Vote": {
+    "title": "Vote no próximo destino",
+    "subtitle": "Todo mês, os assinantes escolhem o próximo prato que vira vídeo no @thecinematic.chef.",
+    "closes": "Votação aberta até {date}",
+    "vote": "Votar",
+    "voted": "Seu voto",
+    "changeVote": "Mudar para este",
+    "results": "{count, plural, =0 {Nenhum voto} one {# voto} other {# votos}}",
+    "resultsHidden": "Os resultados aparecem depois que você vota.",
+    "subscribersOnly": "Só assinantes votam.",
+    "seePlans": "Ver planos",
+    "signIn": "Entrar para votar",
+    "none": "Nenhuma votação aberta agora. Volte no começo do mês!",
+    "past": "Destinos escolhidos",
+    "winner": "Vencedor",
+    "noWinner": "Sem votos",
+    "thanks": "Voto registrado!",
+    "errors": {
+      "forbidden": "Só assinantes podem votar.",
+      "closed": "Esta votação já foi encerrada.",
+      "generic": "Não foi possível registrar seu voto."
+    }
   }
 }

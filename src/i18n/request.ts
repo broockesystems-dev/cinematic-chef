@@ -10,6 +10,8 @@ export default getRequestConfig(async ({ requestLocale }) => {
 
   return {
     locale,
+    // The business runs on Brasília time (publication schedules, vote deadlines).
+    timeZone: "America/Sao_Paulo",
     messages: (await import(`../../messages/${locale}.json`)).default,
   };
 });
