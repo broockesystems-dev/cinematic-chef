@@ -79,6 +79,78 @@ export type Database = {
           },
         ];
       };
+      bundle_dishes: {
+        Row: {
+          bundle_id: string;
+          dish_id: string;
+          position: number;
+        };
+        Insert: {
+          bundle_id: string;
+          dish_id: string;
+          position: number;
+        };
+        Update: {
+          bundle_id?: string;
+          dish_id?: string;
+          position?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "bundle_dishes_bundle_id_fkey";
+            columns: ["bundle_id"];
+            isOneToOne: false;
+            referencedRelation: "bundles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "bundle_dishes_dish_id_fkey";
+            columns: ["dish_id"];
+            isOneToOne: false;
+            referencedRelation: "dishes";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      bundles: {
+        Row: {
+          cover_url: string | null;
+          created_at: string;
+          description: NonNullable<Json>;
+          id: string;
+          name: NonNullable<Json>;
+          price_brl: number;
+          price_usd: number;
+          slug: string;
+          status: Database["public"]["Enums"]["dish_status"];
+          updated_at: string;
+        };
+        Insert: {
+          cover_url?: string | null;
+          created_at?: string;
+          description?: NonNullable<Json>;
+          id?: string;
+          name: NonNullable<Json>;
+          price_brl: number;
+          price_usd: number;
+          slug: string;
+          status?: Database["public"]["Enums"]["dish_status"];
+          updated_at?: string;
+        };
+        Update: {
+          cover_url?: string | null;
+          created_at?: string;
+          description?: NonNullable<Json>;
+          id?: string;
+          name?: NonNullable<Json>;
+          price_brl?: number;
+          price_usd?: number;
+          slug?: string;
+          status?: Database["public"]["Enums"]["dish_status"];
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       cooked_dishes: {
         Row: {
           created_at: string;
@@ -429,6 +501,54 @@ export type Database = {
         };
         Relationships: [];
       };
+      purchases: {
+        Row: {
+          amount: number;
+          bundle_id: string;
+          created_at: string;
+          currency: string;
+          id: string;
+          provider: Database["public"]["Enums"]["payment_provider"];
+          provider_payment_id: string;
+          user_id: string;
+        };
+        Insert: {
+          amount: number;
+          bundle_id: string;
+          created_at?: string;
+          currency: string;
+          id?: string;
+          provider: Database["public"]["Enums"]["payment_provider"];
+          provider_payment_id: string;
+          user_id: string;
+        };
+        Update: {
+          amount?: number;
+          bundle_id?: string;
+          created_at?: string;
+          currency?: string;
+          id?: string;
+          provider?: Database["public"]["Enums"]["payment_provider"];
+          provider_payment_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "purchases_bundle_id_fkey";
+            columns: ["bundle_id"];
+            isOneToOne: false;
+            referencedRelation: "bundles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "purchases_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       steps: {
         Row: {
           dish_id: string;
@@ -638,6 +758,10 @@ export type Database = {
       is_dish_visible: { Args: { p_dish_id: string }; Returns: boolean };
       is_i18n_text: {
         Args: { required?: boolean; value: Json };
+        Returns: boolean;
+      };
+      owns_dish_through_bundle: {
+        Args: { p_dish_id: string };
         Returns: boolean;
       };
       poll_accepts_votes: { Args: { p_poll_id: string }; Returns: boolean };

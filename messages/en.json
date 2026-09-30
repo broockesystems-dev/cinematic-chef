@@ -12,7 +12,8 @@
     "signOut": "Sign out",
     "skip": "Skip to content",
     "passport": "My passport",
-    "vote": "Vote"
+    "vote": "Vote",
+    "trips": "Trips"
   },
   "LocaleSwitcher": {
     "label": "Language",
@@ -344,6 +345,31 @@
       "forbidden": "Only subscribers can vote.",
       "closed": "This vote has closed.",
       "generic": "We couldn't record your vote."
+    }
+  },
+  "Trips": {
+    "title": "Trips",
+    "subtitle": "Themed bundles of dishes to buy once and keep forever, no subscription needed.",
+    "dishes": "{count, plural, one {# dish} other {# dishes}}",
+    "lifetime": "Lifetime access",
+    "buy": "Buy this trip",
+    "redirecting": "Opening checkout…",
+    "owned": "This trip is yours",
+    "ownedHint": "You have lifetime access to every dish below.",
+    "purchaseSuccess": "Payment received! Access unlocks as soon as the provider confirms it (usually a few seconds).",
+    "subscriberNote": "You're a subscriber: every dish is already unlocked for you.",
+    "included": "Dishes included",
+    "empty": "New trips coming soon.",
+    "payWithPix": "One-time payment with Pix (Mercado Pago).",
+    "payWithCard": "One-time card payment (Stripe), in US dollars.",
+    "myTrips": "My trips",
+    "noTrips": "You haven't bought any trips yet.",
+    "errors": {
+      "already_owned": "You already own this trip.",
+      "provider_error": "We couldn't open checkout right now.",
+      "rate_limited": "Too many attempts. Please wait a few minutes.",
+      "country_required": "Choose your country.",
+      "generic": "Something went wrong. Please try again."
     }
   }
 }

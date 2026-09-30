@@ -28,7 +28,10 @@ Bilingual (PT/EN) world-food app. See README.md for the full picture.
 - New migrations go in `supabase/migrations/` with RLS enabled and explicit grants.
 
 ## Layout
-- `src/app/[locale]/(explore)` globe + panel (static), `dish/[slug]` recipe page,
-  `pricing`, `account`, `privacy`, `terms`, `login`; `src/app/admin` separate root layout.
-- `src/app/api/*` route handlers (search, checkout, billing-portal, video-token,
-  admin/translate, webhooks/{stripe,mercadopago,mux}); all user-facing ones are rate limited.
+- `src/app/[locale]/(explore)` globe + panel (static), `dish/[slug]` recipe page (with AI chef,
+  favorites, passport stamp), `pricing`, `account`, `passport`, `vote`, `trips`, `privacy`,
+  `terms`, `login`; `src/app/admin` separate root layout (dishes, places, trips, polls).
+- `src/app/api/*` route handlers (search, checkout, checkout/bundle, billing-portal, video-token,
+  chef, admin/translate, webhooks/{stripe,mercadopago,mux}); all user-facing ones are rate limited.
+- Access to premium recipe content = `has_access()`: admin, free dish, active subscription, or a
+  purchased trip (`purchases` + `bundle_dishes`).

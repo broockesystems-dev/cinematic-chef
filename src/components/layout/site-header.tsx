@@ -17,6 +17,12 @@ export function SiteHeader() {
         </Link>
         <nav aria-label={t("home")} className="flex items-center gap-2">
           <Link
+            href="/trips"
+            className="hidden px-2 text-sm text-muted-foreground hover:text-foreground md:inline"
+          >
+            {t("trips")}
+          </Link>
+          <Link
             href="/vote"
             className="hidden px-2 text-sm text-muted-foreground hover:text-foreground sm:inline"
           >

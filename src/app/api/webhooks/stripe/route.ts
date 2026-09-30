@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { serverEnv } from "@/lib/env.server";
+import { recordPurchase } from "@/lib/payments/purchases";
 import { getStripe, syncStripeSubscription } from "@/lib/payments/stripe";
 
 export async function POST(request: Request) {
@@ -23,6 +24,27 @@ export async function POST(request: Request) {
     switch (event.type) {
       case "checkout.session.completed": {
         const session = event.data.object;
+        if (session.mode === "payment" && session.metadata?.kind === "bundle") {
+          // One-off trip: the signed event is the source of truth; only paid sessions count.
+          if (
+            session.payment_status === "paid" &&
+            session.metadata.user_id &&
+            session.metadata.bundle_id
+          ) {
+            await recordPurchase({
+              userId: session.metadata.user_id,
+              bundleId: session.metadata.bundle_id,
+              provider: "stripe",
+              providerPaymentId:
+                typeof session.payment_intent === "string"
+                  ? session.payment_intent
+                  : session.id,
+              amount: session.amount_total ?? 0,
+              currency: "USD",
+            });
+          }
+          break;
+        }
         if (session.mode === "subscription" && session.subscription) {
           await syncStripeSubscription(
             typeof session.subscription === "string"

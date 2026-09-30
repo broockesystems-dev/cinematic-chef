@@ -5,12 +5,14 @@ import {
   setRequestLocale,
 } from "next-intl/server";
 import { DeleteAccount } from "@/components/account/delete-account";
+import { MyTrips } from "@/components/account/my-trips";
 import { FavoritesList } from "@/components/account/favorites-list";
 import { PreferencesForm } from "@/components/account/preferences-form";
 import { SubscriptionCard } from "@/components/account/subscription-card";
 import { redirect } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { getAccount } from "@/lib/account";
+import { listMyBundles } from "@/lib/bundles";
 import { countryOptions } from "@/lib/countries";
 import type { I18nText } from "@/lib/i18n-text";
 import { createClient } from "@/lib/supabase/server";
@@ -75,6 +77,8 @@ export default async function AccountPage({
         }
         hasStripeCustomer={Boolean(account.stripeCustomerId)}
       />
+
+      <MyTrips trips={await listMyBundles()} />
 
       <FavoritesList
         favorites={(favorites ?? []).flatMap((f) =>

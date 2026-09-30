@@ -39,7 +39,7 @@ npm run dev               # http://localhost:3000
 
 | Comando | O que cobre |
 | --- | --- |
-| `npm run db:test` | 77 testes pgTAP: RLS (visitante, grátis, assinante, vencido, admin), integridade, busca, rate limit, RPCs do admin, Chef IA, passaporte e votação |
+| `npm run db:test` | 84 testes pgTAP: RLS (visitante, grátis, assinante, vencido, admin), integridade, busca, rate limit, RPCs do admin, Chef IA, passaporte, votação e roteiros |
 | `npm test` | 31 testes Vitest: medidas e frações, porções, formatos de tempo, árvore do explorador, carimbos e conquistas |
 | `npm run typecheck` / `npm run lint` | Tipos (inclusive das rotas e das mensagens de i18n) e ESLint |
 
@@ -213,6 +213,22 @@ garante o resto.
 - O banco garante as regras (RLS e chaves): só assinante, só votação aberta e
   dentro do prazo, um voto por pessoa e nunca numa opção de outra votação.
 - Datas e prazos são exibidos no horário de Brasília (configurado no next-intl).
+
+## Roteiros avulsos (fase 3)
+
+- `/trips` e `/trips/<slug>`: pacotes temáticos de pratos (ex.: "Uma semana em
+  Nápoles") comprados **uma vez, com acesso vitalício**, sem assinatura.
+  Pagamento único por Pix (Mercado Pago, BRL) ou cartão (Stripe, USD, sem
+  precisar criar Price no Stripe). Quem é assinante vê que já tem tudo.
+- O acesso vem da tabela `purchases`, gravada só pelos webhooks: Stripe
+  `checkout.session.completed` com `payment_status = paid`, e Mercado Pago com
+  pagamento aprovado no valor do roteiro. `has_access()` passa a considerar os
+  pratos dos roteiros comprados, então página, RLS, vídeo, Chef e passaporte
+  seguem a mesma regra.
+- Admin em `/admin/bundles`: nome, descrição, capa, preços em R$ e US$, pratos
+  (ordem ajustável; recomendado 5 a 7) e status; mostra quantas vendas cada
+  roteiro teve. Roteiros vendidos não podem ser apagados, só despublicados.
+- "Meus roteiros" aparece na área do usuário.
 
 ## Planos e pagamentos
 

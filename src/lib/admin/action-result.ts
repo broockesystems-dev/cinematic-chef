@@ -34,7 +34,8 @@ export function checkRow<
 
 const DB_MESSAGES: Record<string, string> = {
   "23505": "Já existe um registro com esse slug.",
-  "23503": "Não dá para apagar: existem lugares ou pratos ligados a este item.",
+  "23503":
+    "Não dá para apagar: há outros registros ligados a este item (lugares, pratos ou vendas).",
   "42501": "Sem permissão para esta ação.",
 };
 

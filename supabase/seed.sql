@@ -129,3 +129,16 @@ insert into public.poll_options (poll_id, position, dish_name, description) valu
   ('80000000-0000-0000-0000-000000000001', 0, '{"pt": "Ramen de Tóquio", "en": "Tokyo ramen"}', '{"pt": "Caldo de horas, macarrão fresco e o ritual das casas de ramen do Japão.", "en": "Hours-long broth, fresh noodles and the ritual of Japan''s ramen shops."}'),
   ('80000000-0000-0000-0000-000000000001', 1, '{"pt": "Khachapuri da Geórgia", "en": "Georgian khachapuri"}', '{"pt": "O pão em forma de barco com queijo derretido e gema, direto de Tbilisi.", "en": "The boat-shaped bread with molten cheese and egg yolk, straight from Tbilisi."}'),
   ('80000000-0000-0000-0000-000000000001', 2, '{"pt": "Moqueca capixaba", "en": "Moqueca from Espírito Santo"}', '{"pt": "Peixe cozido na panela de barro, com urucum e sem dendê.", "en": "Fish stewed in a clay pot with annatto and no palm oil."}');
+
+-- ---------------------------------------------------------------------------
+-- One-off trip
+-- ---------------------------------------------------------------------------
+insert into public.bundles (id, slug, name, description, price_brl, price_usd, status) values
+  ('90000000-0000-0000-0000-000000000001', 'volta-ao-mundo',
+   '{"pt": "Volta ao mundo em 3 pratos", "en": "Around the world in 3 dishes"}',
+   '{"pt": "De Nápoles a Belo Horizonte, passando pela Cidade do México: três clássicos de rua para cozinhar em um fim de semana.", "en": "From Naples to Belo Horizonte by way of Mexico City: three street-food classics to cook over a weekend."}',
+   2900, 900, 'published');
+insert into public.bundle_dishes (bundle_id, dish_id, position) values
+  ('90000000-0000-0000-0000-000000000001', '50000000-0000-0000-0000-000000000001', 0),
+  ('90000000-0000-0000-0000-000000000001', '50000000-0000-0000-0000-000000000002', 1),
+  ('90000000-0000-0000-0000-000000000001', '50000000-0000-0000-0000-000000000003', 2);

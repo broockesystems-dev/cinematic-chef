@@ -3,6 +3,7 @@ import crypto from "node:crypto";
 import { serverEnv } from "@/lib/env.server";
 import { PLAN_MONTHS, PRICES, type Plan } from "@/lib/plans";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { recordPurchase } from "./purchases";
 import { upsertSubscription } from "./subscriptions";
 
 // Pix has no recurring charge here: each approved payment buys one period
@@ -28,11 +29,13 @@ async function mpFetch<T>(path: string, init?: RequestInit): Promise<T> {
   return response.json() as Promise<T>;
 }
 
-export async function createPixCheckout(input: {
-  userId: string;
-  email: string | null;
-  plan: Plan;
+/** Pix-only Checkout Pro preference for any single item. */
+async function createPixPreference(input: {
+  itemId: string;
   title: string;
+  amountMinor: number;
+  email: string | null;
+  externalReference: string;
   successUrl: string;
   failureUrl: string;
   notificationUrl: string;
@@ -46,15 +49,15 @@ export async function createPixCheckout(input: {
       body: JSON.stringify({
         items: [
           {
-            id: `cinematic-chef-${input.plan}`,
+            id: input.itemId,
             title: input.title,
             quantity: 1,
             currency_id: "BRL",
-            unit_price: PRICES.BRL[input.plan] / 100,
+            unit_price: input.amountMinor / 100,
           },
         ],
         payer: input.email ? { email: input.email } : undefined,
-        external_reference: `${input.userId}:${input.plan}`,
+        external_reference: input.externalReference,
         notification_url: input.notificationUrl,
         back_urls: {
           success: input.successUrl,
@@ -62,7 +65,7 @@ export async function createPixCheckout(input: {
           failure: input.failureUrl,
         },
         auto_return: "approved",
-        // Pix only: cards in BRL are out of scope for phase 1.
+        // Pix only: cards in BRL are out of scope.
         payment_methods: {
           excluded_payment_types: [
             "credit_card",
@@ -77,6 +80,39 @@ export async function createPixCheckout(input: {
     },
   );
   return preference.init_point;
+}
+
+type CheckoutUrls = {
+  email: string | null;
+  successUrl: string;
+  failureUrl: string;
+  notificationUrl: string;
+};
+
+export function createPixCheckout(
+  input: CheckoutUrls & { userId: string; plan: Plan; title: string },
+) {
+  return createPixPreference({
+    ...input,
+    itemId: `cinematic-chef-${input.plan}`,
+    amountMinor: PRICES.BRL[input.plan],
+    externalReference: `${input.userId}:${input.plan}`,
+  });
+}
+
+export function createBundlePixCheckout(
+  input: CheckoutUrls & {
+    userId: string;
+    bundleId: string;
+    title: string;
+    amountMinor: number;
+  },
+) {
+  return createPixPreference({
+    ...input,
+    itemId: `trip-${input.bundleId}`,
+    externalReference: `bundle:${input.userId}:${input.bundleId}`,
+  });
 }
 
 /**
@@ -123,11 +159,11 @@ export async function processMercadoPagoPayment(
   );
   if (payment.status !== "approved" || payment.currency_id !== "BRL")
     return "ignored";
+  const reference = payment.external_reference ?? "";
+  if (reference.startsWith("bundle:"))
+    return processBundlePayment(payment, reference);
 
-  const [userId, plan] = (payment.external_reference ?? "").split(":") as [
-    string,
-    Plan,
-  ];
+  const [userId, plan] = reference.split(":") as [string, Plan];
   if (!userId || !(plan in PLAN_MONTHS)) return "ignored";
   // Guards against a tampered preference with a lower price.
   if (Math.round(payment.transaction_amount * 100) < PRICES.BRL[plan])
@@ -171,6 +207,35 @@ export async function processMercadoPagoPayment(
     currency: "BRL",
     status: "active",
     currentPeriodEnd: end,
+  });
+  return "granted";
+}
+
+async function processBundlePayment(
+  payment: MpPayment,
+  reference: string,
+): Promise<"granted" | "ignored"> {
+  const [, userId, bundleId] = reference.split(":");
+  const supabase = createAdminClient();
+  const [{ data: bundle }, { data: profile }] = await Promise.all([
+    supabase
+      .from("bundles")
+      .select("price_brl")
+      .eq("id", bundleId)
+      .maybeSingle(),
+    supabase.from("profiles").select("id").eq("id", userId).maybeSingle(),
+  ]);
+  if (!bundle || !profile) return "ignored";
+  const paid = Math.round(payment.transaction_amount * 100);
+  // Guards against a tampered preference with a lower price.
+  if (paid < bundle.price_brl) return "ignored";
+  await recordPurchase({
+    userId,
+    bundleId,
+    provider: "mercadopago",
+    providerPaymentId: String(payment.id),
+    amount: paid,
+    currency: "BRL",
   });
   return "granted";
 }

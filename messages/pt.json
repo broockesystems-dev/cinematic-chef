@@ -12,7 +12,8 @@
     "signOut": "Sair",
     "skip": "Pular para o conteúdo",
     "passport": "Meu passaporte",
-    "vote": "Votação"
+    "vote": "Votação",
+    "trips": "Roteiros"
   },
   "LocaleSwitcher": {
     "label": "Idioma",
@@ -344,6 +345,31 @@
       "forbidden": "Só assinantes podem votar.",
       "closed": "Esta votação já foi encerrada.",
       "generic": "Não foi possível registrar seu voto."
+    }
+  },
+  "Trips": {
+    "title": "Roteiros",
+    "subtitle": "Pacotes temáticos de pratos para comprar uma vez e ter para sempre, sem assinatura.",
+    "dishes": "{count, plural, one {# prato} other {# pratos}}",
+    "lifetime": "Acesso vitalício",
+    "buy": "Comprar roteiro",
+    "redirecting": "Abrindo o pagamento…",
+    "owned": "Este roteiro é seu",
+    "ownedHint": "Você tem acesso vitalício a todos os pratos abaixo.",
+    "purchaseSuccess": "Pagamento recebido! O acesso é liberado assim que o provedor confirmar (costuma levar alguns segundos).",
+    "subscriberNote": "Você é assinante: todos os pratos já estão liberados para você.",
+    "included": "Pratos incluídos",
+    "empty": "Novos roteiros em breve.",
+    "payWithPix": "Pagamento único por Pix (Mercado Pago).",
+    "payWithCard": "Pagamento único com cartão (Stripe), em dólares.",
+    "myTrips": "Meus roteiros",
+    "noTrips": "Você ainda não comprou nenhum roteiro.",
+    "errors": {
+      "already_owned": "Você já tem este roteiro.",
+      "provider_error": "Não foi possível abrir o pagamento agora.",
+      "rate_limited": "Muitas tentativas. Espere alguns minutos.",
+      "country_required": "Escolha seu país.",
+      "generic": "Algo deu errado. Tente de novo."
     }
   }
 }
