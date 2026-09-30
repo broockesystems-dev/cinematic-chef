@@ -40,8 +40,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "bad_request" }, { status: 400 });
   const { plan, locale } = body.data;
 
-  if (account.subscription)
+  // A card subscription renews by itself; Pix periods can be topped up.
+  if (account.subscription?.provider === "stripe") {
     return NextResponse.json({ error: "already_subscribed" }, { status: 409 });
+  }
 
   let country = account.country;
   if (!country) {

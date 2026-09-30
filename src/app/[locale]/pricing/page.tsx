@@ -51,7 +51,12 @@ export default async function PricingPage({
       </header>
       <PricingPlans
         signedIn={Boolean(account)}
-        subscribed={Boolean(account?.subscription)}
+        subscribed={account?.subscription?.provider === "stripe"}
+        pixActiveUntil={
+          account?.subscription?.provider === "mercadopago"
+            ? account.subscription.currentPeriodEnd
+            : null
+        }
         profileCountry={account?.country ?? null}
         initialCountry={guessedCountry}
         countries={countryOptions(locale)}

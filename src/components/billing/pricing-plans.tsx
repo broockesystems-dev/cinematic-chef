@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, Loader2 } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { useFormatter, useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { NativeSelect } from "@/components/ui/native-select";
 import { Badge } from "@/components/ui/badge";
@@ -20,7 +20,10 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   signedIn: boolean;
+  /** Has a recurring card subscription (nothing more to buy). */
   subscribed: boolean;
+  /** Prepaid Pix access end, if any: buying again adds time. */
+  pixActiveUntil: string | null;
   /** Set once on the profile; after that the currency is fixed. */
   profileCountry: string | null;
   initialCountry: string;
@@ -30,11 +33,13 @@ type Props = {
 export function PricingPlans({
   signedIn,
   subscribed,
+  pixActiveUntil,
   profileCountry,
   initialCountry,
   countries,
 }: Props) {
   const t = useTranslations("Pricing");
+  const format = useFormatter();
   const locale = useLocale();
   const router = useRouter();
   const [country, setCountry] = useState(initialCountry);
@@ -144,6 +149,15 @@ export function PricingPlans({
       <div className="space-y-2 text-center text-sm text-muted-foreground">
         {subscribed && (
           <p className="text-foreground">{t("alreadySubscribed")}</p>
+        )}
+        {pixActiveUntil && (
+          <p className="text-foreground">
+            {t("addTime", {
+              date: format.dateTime(new Date(pixActiveUntil), {
+                dateStyle: "long",
+              }),
+            })}
+          </p>
         )}
         <p>{currency === "BRL" ? t("currencyBRL") : t("currencyUSD")}</p>
         {error && (

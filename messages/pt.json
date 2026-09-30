@@ -187,7 +187,8 @@
       "country_required": "Escolha seu país.",
       "already_subscribed": "Você já é assinante.",
       "generic": "Algo deu errado. Tente de novo."
-    }
+    },
+    "addTime": "Seu acesso via Pix vai até {date}. Um novo pagamento soma mais tempo a partir dessa data."
   },
   "Account": {
     "title": "Minha conta",

@@ -187,7 +187,8 @@
       "country_required": "Choose your country.",
       "already_subscribed": "You're already a subscriber.",
       "generic": "Something went wrong. Please try again."
-    }
+    },
+    "addTime": "Your Pix access runs until {date}. A new payment adds time from that date."
   },
   "Account": {
     "title": "My account",

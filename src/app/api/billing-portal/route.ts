@@ -4,6 +4,7 @@ import { routing } from "@/i18n/routing";
 import { getAccount } from "@/lib/account";
 import { publicEnv } from "@/lib/env";
 import { getStripe } from "@/lib/payments/stripe";
+import { rateLimit } from "@/lib/rate-limit";
 
 const BodySchema = z.object({ locale: z.enum(routing.locales) });
 
@@ -12,6 +13,9 @@ export async function POST(request: Request) {
   const account = await getAccount();
   if (!account)
     return NextResponse.json({ error: "unauthenticated" }, { status: 401 });
+  if (!(await rateLimit(`billing-portal:${account.id}`, 10, 600))) {
+    return NextResponse.json({ error: "rate_limited" }, { status: 429 });
+  }
   if (!account.stripeCustomerId)
     return NextResponse.json({ error: "no_customer" }, { status: 404 });
 

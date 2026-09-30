@@ -134,6 +134,13 @@ export async function processMercadoPagoPayment(
     return "ignored";
 
   const supabase = createAdminClient();
+  // The account may have been deleted after paying; nothing to grant then.
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("id")
+    .eq("id", userId)
+    .maybeSingle();
+  if (!profile) return "ignored";
   const providerSubscriptionId = String(payment.id);
   const { data: existing } = await supabase
     .from("subscriptions")

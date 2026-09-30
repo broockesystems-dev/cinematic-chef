@@ -54,10 +54,14 @@ export async function syncStripeSubscription(
 ): Promise<void> {
   const subscription = await getStripe().subscriptions.retrieve(subscriptionId);
   const userId = subscription.metadata.user_id;
-  if (!userId)
-    throw new Error(
-      `Stripe subscription ${subscriptionId} has no user_id metadata`,
+  if (!userId) {
+    // Created outside the app (e.g. in the Stripe dashboard): nothing to link
+    // it to. Acknowledge it instead of making Stripe retry for days.
+    console.warn(
+      `Stripe subscription ${subscriptionId} has no user_id metadata; ignored`,
     );
+    return;
+  }
 
   // Since API 2025-03, the billing period lives on each subscription item.
   const periodEnd = Math.max(
