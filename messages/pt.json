@@ -9,7 +9,8 @@
     "account": "Minha conta",
     "signIn": "Entrar",
     "admin": "Painel admin",
-    "signOut": "Sair"
+    "signOut": "Sair",
+    "skip": "Pular para o conteúdo"
   },
   "LocaleSwitcher": {
     "label": "Idioma",

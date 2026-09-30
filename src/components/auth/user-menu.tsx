@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Link, usePathname } from "@/i18n/navigation";
 import { signOut } from "@/lib/actions/auth";
-import { createClient } from "@/lib/supabase/client";
 
 /**
  * Reads the session in the browser so the header can stay static. The role
@@ -29,18 +28,28 @@ export function UserMenu() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const supabase = createClient();
-    const { data } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-      if (!session?.user) return setIsAdmin(false);
-      supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", session.user.id)
-        .single()
-        .then(({ data: profile }) => setIsAdmin(profile?.role === "admin"));
+    let unsubscribe: (() => void) | undefined;
+    let cancelled = false;
+    // Loaded after hydration: keeps supabase-js out of every page's initial JS.
+    import("@/lib/supabase/client").then(({ createClient }) => {
+      if (cancelled) return;
+      const supabase = createClient();
+      const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+        setUser(session?.user ?? null);
+        if (!session?.user) return setIsAdmin(false);
+        supabase
+          .from("profiles")
+          .select("role")
+          .eq("id", session.user.id)
+          .single()
+          .then(({ data: profile }) => setIsAdmin(profile?.role === "admin"));
+      });
+      unsubscribe = () => data.subscription.unsubscribe();
     });
-    return () => data.subscription.unsubscribe();
+    return () => {
+      cancelled = true;
+      unsubscribe?.();
+    };
   }, []);
 
   if (user === undefined) return <div className="size-9" aria-hidden />;

@@ -20,6 +20,8 @@ type Props = {
 };
 
 const WORLD_VIEW = { lat: 20, lng: 10 };
+/** Stop rendering after this long without rotation, flights or input. */
+const IDLE_PAUSE_MS = 2500;
 const RESUME_ROTATION_MS = 8000;
 const FLY_MS = 1500;
 
@@ -108,6 +110,61 @@ export default function GlobeView({
     const target = focus ?? { ...WORLD_VIEW, altitude: lite ? 2.4 : 2.2 };
     globe.pointOfView(target, reducedMotion ? 0 : FLY_MS);
   }, [ready, focus, lite, reducedMotion]);
+
+  // Render only while something moves. three-globe otherwise redraws every
+  // frame forever, which drains phone batteries and blocks the main thread.
+  useEffect(() => {
+    const globe = globeRef.current;
+    const element = containerRef.current;
+    if (!ready || !globe || !element) return;
+
+    let visible = true;
+    let pauseTimer: ReturnType<typeof setTimeout> | undefined;
+    const rotating = () => globe.controls().autoRotate;
+
+    const wake = () => {
+      clearTimeout(pauseTimer);
+      if (!visible || document.hidden) return;
+      globe.resumeAnimation();
+      if (!rotating())
+        pauseTimer = setTimeout(() => globe.pauseAnimation(), IDLE_PAUSE_MS);
+    };
+    const sleep = () => {
+      clearTimeout(pauseTimer);
+      globe.pauseAnimation();
+    };
+
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) wake();
+      else sleep();
+    });
+    observer.observe(element);
+    const onVisibility = () => (document.hidden ? sleep() : wake());
+    document.addEventListener("visibilitychange", onVisibility);
+    const events = [
+      "pointerdown",
+      "pointermove",
+      "wheel",
+      "touchstart",
+    ] as const;
+    events.forEach((name) =>
+      element.addEventListener(name, wake, { passive: true }),
+    );
+    const controls = globe.controls();
+    controls.addEventListener("change", wake);
+    wake();
+
+    return () => {
+      clearTimeout(pauseTimer);
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
+      events.forEach((name) => element.removeEventListener(name, wake));
+      controls.removeEventListener("change", wake);
+      globe.resumeAnimation();
+    };
+    // Re-arm when the camera flies somewhere or rotation toggles.
+  }, [ready, focus, autoRotate]);
 
   return (
     <div ref={containerRef} className="absolute inset-0">

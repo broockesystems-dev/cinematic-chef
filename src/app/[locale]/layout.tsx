@@ -4,9 +4,11 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { SkipLink } from "@/components/layout/skip-link";
 import { Toaster } from "@/components/ui/sonner";
 import { routing, type Locale } from "@/i18n/routing";
 import { publicEnv } from "@/lib/env";
+import { openGraphLocale } from "@/lib/seo";
 import { fontVariables } from "../fonts";
 import "../globals.css";
 
@@ -27,6 +29,15 @@ export async function generateMetadata({
     metadataBase: new URL(publicEnv.siteUrl),
     title: { default: t("title"), template: "%s · The Cinematic Chef" },
     description: t("description"),
+    applicationName: "The Cinematic Chef",
+    openGraph: {
+      type: "website",
+      siteName: "The Cinematic Chef",
+      locale: openGraphLocale(locale as Locale),
+      title: t("title"),
+      description: t("description"),
+    },
+    twitter: { card: "summary_large_image" },
   };
 }
 
@@ -47,8 +58,15 @@ export default async function LocaleLayout({
     >
       <body className="flex min-h-full flex-col font-sans">
         <NextIntlClientProvider>
+          <SkipLink />
           <SiteHeader />
-          <main className="flex flex-1 flex-col">{children}</main>
+          <main
+            id="content"
+            tabIndex={-1}
+            className="flex flex-1 flex-col outline-none"
+          >
+            {children}
+          </main>
           <SiteFooter />
           <Toaster />
         </NextIntlClientProvider>

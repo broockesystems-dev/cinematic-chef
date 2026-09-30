@@ -6,6 +6,7 @@ import { routing, type Locale } from "@/i18n/routing";
 import { resolveSlugPath } from "@/lib/explore";
 import { getExploreData } from "@/lib/explore.server";
 import { localize } from "@/lib/i18n-text";
+import { pageMetadata } from "@/lib/seo";
 
 export async function generateStaticParams() {
   const { locations } = await getExploreData();
@@ -32,10 +33,12 @@ export async function generateMetadata({
     namespace: "Explore",
   });
   const place = chain.at(-1)!;
-  return {
+  return pageMetadata({
+    locale: locale as Locale,
+    path: `/explore/${path.join("/")}`,
     title: localize(place.name, locale as Locale).text,
     description: `${localize(place.name, locale as Locale).text}: ${t("dishCount", { count: place.dishCount })}`,
-  };
+  });
 }
 
 export default async function ExplorePlacePage({

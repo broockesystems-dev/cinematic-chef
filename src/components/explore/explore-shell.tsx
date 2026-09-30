@@ -3,7 +3,7 @@
 import { ChevronUp } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useLocale, useTranslations } from "next-intl";
-import { useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import {
@@ -47,6 +47,8 @@ export function ExploreShell({ locations, pins, children }: Props) {
   const isMobile = useMediaQuery("(max-width: 1023px)");
   const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
   const webgl = useSyncExternalStore(noop, hasWebGL, () => true);
+  const saveData = useSyncExternalStore(noop, prefersSaveData, () => false);
+  const globeReady = useIdle();
 
   const slugKey = pathname.startsWith("/explore/")
     ? pathname.slice("/explore/".length)
@@ -85,7 +87,9 @@ export function ExploreShell({ locations, pins, children }: Props) {
         aria-hidden
       >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,oklch(0.3_0.05_250/0.35),transparent_65%)]" />
-        {webgl ? (
+        {!globeReady ? (
+          <GlobePlaceholder />
+        ) : webgl && !saveData ? (
           <GlobeBoundary
             fallback={<GlobeUnavailable message={t("globeUnavailable")} />}
           >
@@ -144,6 +148,27 @@ export function ExploreShell({ locations, pins, children }: Props) {
       </aside>
     </div>
   );
+}
+
+/** True once the browser is idle, so the panel is interactive before three.js loads. */
+function useIdle(): boolean {
+  const [idle, setIdle] = useState(false);
+  useEffect(() => {
+    if (!("requestIdleCallback" in window)) {
+      const timer = setTimeout(() => setIdle(true), 300);
+      return () => clearTimeout(timer);
+    }
+    const handle = requestIdleCallback(() => setIdle(true), { timeout: 2000 });
+    return () => cancelIdleCallback(handle);
+  }, []);
+  return idle;
+}
+
+function prefersSaveData(): boolean {
+  const connection = (
+    navigator as Navigator & { connection?: { saveData?: boolean } }
+  ).connection;
+  return connection?.saveData === true;
 }
 
 function noop() {

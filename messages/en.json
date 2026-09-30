@@ -9,7 +9,8 @@
     "account": "My account",
     "signIn": "Sign in",
     "admin": "Admin panel",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "skip": "Skip to content"
   },
   "LocaleSwitcher": {
     "label": "Language",

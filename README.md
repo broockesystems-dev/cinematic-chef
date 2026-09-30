@@ -35,6 +35,14 @@ npm run dev               # http://localhost:3000
 | `npm run db:test` | Roda os testes de RLS e integridade (pgTAP) |
 | `npm run db:types` | Gera `src/lib/supabase/database.types.ts` a partir do banco local |
 
+## Testes
+
+| Comando | O que cobre |
+| --- | --- |
+| `npm run db:test` | 45 testes pgTAP: RLS (visitante, grátis, assinante, vencido, admin), integridade, busca, rate limit e RPCs do admin |
+| `npm test` | 27 testes Vitest: medidas e frações, porções, formatos de tempo, árvore do explorador |
+| `npm run typecheck` / `npm run lint` | Tipos (inclusive das rotas e das mensagens de i18n) e ESLint |
+
 ## Estrutura
 
 ```
@@ -204,6 +212,44 @@ garante o resto.
   textos com um advogado antes de lançar.**
 - Cookies: só os essenciais (sessão e idioma); o player do Mux roda sem
   cookies de analytics.
+
+## SEO, desempenho e acessibilidade
+
+- **SEO:** cada página pública tem URL própria em `/pt` e `/en`, com
+  canonical e `hreflang` (`pt-BR`, `en`, `x-default`) e Open Graph no idioma
+  certo (`src/lib/seo.ts`). O prato ganha JSON-LD `Recipe` (ingredientes e
+  passos só quando o visitante tem acesso; pratos pagos são marcados como
+  `isAccessibleForFree: false`) e imagem de compartilhamento gerada com nome,
+  lugar e capa. `sitemap.xml` (com alternates de idioma) e `robots.txt` saem
+  do catálogo. Os metadados vão sempre no `<head>` (`htmlLimitedBots`), para
+  buscadores e prévias de link.
+- **Desempenho no celular:** o globo só carrega quando o navegador fica ocioso,
+  usa textura leve, pausa a renderização quando está parado, fora da tela ou
+  com a aba escondida, e não carrega com "economia de dados". O SDK do
+  Supabase sai do JavaScript inicial das páginas públicas. Explorador,
+  planos e páginas legais são estáticos.
+- **Acessibilidade:** link "pular para o conteúdo", foco visível, painel e
+  busca navegáveis por teclado (combobox WAI-ARIA), rótulos em todos os
+  controles, `lang` correto quando um texto cai no outro idioma e respeito a
+  "reduzir movimento". Auditoria axe-core (WCAG 2.1 AA) sem violações nas
+  telas principais, do site e do admin.
+- **Cabeçalhos de segurança:** HSTS, `X-Frame-Options`, `nosniff`,
+  `Referrer-Policy` e `Permissions-Policy`.
+
+## Deploy (Vercel + Supabase)
+
+1. Crie o projeto no Supabase e rode `npx supabase link` e
+   `npx supabase db push` para aplicar as migrations (o seed é só local).
+2. Em Authentication › URL Configuration, defina o Site URL (ex:
+   `https://thecinematic.chef`) e adicione `https://thecinematic.chef/**` às
+   Redirect URLs. Ative o Google (seção Login).
+3. Na Vercel, importe o repositório e configure todas as variáveis de
+   `.env.example`, com `NEXT_PUBLIC_SITE_URL` apontando para o domínio final.
+4. Configure os webhooks: Mux (`/api/webhooks/mux`), Stripe
+   (`/api/webhooks/stripe`) e Mercado Pago (`/api/webhooks/mercadopago`).
+5. Faça login uma vez e torne sua conta admin (SQL na seção Banco de dados).
+6. Revise `src/content/legal.ts` e `src/lib/site.ts` (empresa, e-mail de
+   contato) com um advogado.
 
 ## Idiomas
 

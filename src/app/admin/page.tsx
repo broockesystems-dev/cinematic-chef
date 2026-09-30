@@ -37,9 +37,9 @@ export default async function AdminDashboard() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <dd className="font-display text-4xl font-semibold tabular-nums">
+                <p className="font-display text-4xl font-semibold tabular-nums">
                   {tile.value}
-                </dd>
+                </p>
               </CardContent>
             </Card>
           </li>

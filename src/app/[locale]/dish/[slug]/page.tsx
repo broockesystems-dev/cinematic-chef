@@ -8,6 +8,7 @@ import { DishVideo } from "@/components/dish/dish-video";
 import { FavoriteButton } from "@/components/dish/favorite-button";
 import { LockedRecipe } from "@/components/dish/locked-recipe";
 import { Recipe } from "@/components/dish/recipe";
+import { RecipeJsonLd } from "@/components/dish/recipe-json-ld";
 import type { RecipeIngredient, RecipeStep } from "@/components/dish/types";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
@@ -15,6 +16,7 @@ import { getDishPage, getFavoriteState } from "@/lib/dishes";
 import { explorePath } from "@/lib/explore";
 import { formatMinutes } from "@/lib/format";
 import { localize } from "@/lib/i18n-text";
+import { pageMetadata } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -24,13 +26,13 @@ export async function generateMetadata({
   if (!data) return {};
   const name = localize(data.dish.name, locale as Locale).text;
   const story = localize(data.dish.story, locale as Locale).text;
-  return {
+  return pageMetadata({
+    locale: locale as Locale,
+    path: `/dish/${slug}`,
     title: name,
     description: story.slice(0, 160),
-    openGraph: data.dish.cover_url
-      ? { images: [data.dish.cover_url] }
-      : undefined,
-  };
+    type: "article",
+  });
 }
 
 export default async function DishPage({
@@ -83,6 +85,7 @@ export default async function DishPage({
 
   return (
     <article>
+      <RecipeJsonLd data={data} locale={locale} />
       <header className="relative isolate overflow-hidden border-b">
         {dish.cover_url ? (
           <Image

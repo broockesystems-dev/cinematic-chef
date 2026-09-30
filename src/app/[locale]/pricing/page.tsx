@@ -4,16 +4,20 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PricingPlans } from "@/components/billing/pricing-plans";
 import type { Locale } from "@/i18n/routing";
 import { getAccount } from "@/lib/account";
+import { pageMetadata } from "@/lib/seo";
 import { countryOptions, isCountryCode } from "@/lib/countries";
 
 export async function generateMetadata({
   params,
 }: PageProps<"/[locale]/pricing">): Promise<Metadata> {
-  const t = await getTranslations({
-    locale: (await params).locale as Locale,
-    namespace: "Pricing",
+  const locale = (await params).locale as Locale;
+  const t = await getTranslations({ locale, namespace: "Pricing" });
+  return pageMetadata({
+    locale,
+    path: "/pricing",
+    title: t("title"),
+    description: t("subtitle"),
   });
-  return { title: t("title"), description: t("subtitle") };
 }
 
 export default async function PricingPage({
