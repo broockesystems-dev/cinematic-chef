@@ -31,6 +31,7 @@ npm run dev               # http://localhost:3000
 | `npm run typecheck` | Gera os tipos de rota do Next e roda `tsc` |
 | `npm run db:start` / `db:stop` | Liga/desliga o Supabase local |
 | `npm run db:reset` | Recria o banco aplicando migrations e seed |
+| `npm run db:test` | Roda os testes de RLS e integridade (pgTAP) |
 | `npm run db:types` | Gera `src/lib/supabase/database.types.ts` a partir do banco local |
 
 ## Estrutura
@@ -44,6 +45,36 @@ src/lib/supabase/    clientes do navegador, do servidor, do proxy e admin
 src/proxy.ts         detecção de idioma + renovação da sessão do Supabase
 supabase/            config local, migrations e seed
 ```
+
+## Banco de dados
+
+Migrations em `supabase/migrations`, seed em `supabase/seed.sql` e testes em
+`supabase/tests/database`.
+
+- Textos bilíngues ficam em JSONB `{"pt": "...", "en": "..."}`. O PT é
+  obrigatório; o EN pode ficar vazio até ser traduzido.
+- `locations` é uma árvore única (continente > país > cidade > bairro); um
+  trigger impede, por exemplo, uma cidade pendurada direto num continente.
+- Um prato `published` com `published_at` no futuro fica agendado e invisível
+  até a data.
+- **Acesso:** a função `has_access(dish_id)` decide quem lê ingredientes,
+  passos e o vídeo completo: admin, ou prato publicado e (grátis ou assinatura
+  `active`/`trialing` com `current_period_end` no futuro). As políticas de RLS
+  usam essa função.
+- `subscriptions` não aceita escrita de usuários; só os webhooks, com a chave
+  secreta, gravam nela. Usuários também não conseguem alterar o próprio `role`.
+- Bucket público `media` (capas, fotos de passos, legendas .vtt); só admin envia.
+
+### Tornar alguém admin
+
+Depois que a pessoa fizer login uma vez (o perfil é criado automaticamente):
+
+```sql
+update public.profiles set role = 'admin'
+where id = (select id from auth.users where email = 'voce@exemplo.com');
+```
+
+Localmente, rode no SQL do banco (`psql postgresql://postgres:postgres@127.0.0.1:54322/postgres`).
 
 ## Idiomas
 
