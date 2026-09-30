@@ -1,0 +1,32 @@
+{
+  "Metadata": {
+    "title": "The Cinematic Chef — Comidas típicas do mundo",
+    "description": "Gire o globo, escolha um lugar e aprenda os pratos típicos de cada canto do mundo, com história, receita passo a passo e vídeo cinematográfico."
+  },
+  "Header": {
+    "home": "Início",
+    "pricing": "Planos",
+    "account": "Minha conta",
+    "signIn": "Entrar"
+  },
+  "LocaleSwitcher": {
+    "label": "Idioma",
+    "pt": "Português",
+    "en": "English"
+  },
+  "Home": {
+    "eyebrow": "@thecinematic.chef",
+    "title": "O mundo inteiro, um prato de cada vez.",
+    "subtitle": "Gire o globo, desça até uma cidade e descubra a história, a receita e o vídeo de cada prato típico.",
+    "comingSoon": "O globo interativo chega na etapa 5."
+  },
+  "Footer": {
+    "privacy": "Privacidade",
+    "terms": "Termos de uso",
+    "rights": "Todos os direitos reservados."
+  },
+  "NotFound": {
+    "title": "Página não encontrada",
+    "back": "Voltar ao início"
+  }
+}

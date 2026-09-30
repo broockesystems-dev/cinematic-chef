@@ -1,0 +1,32 @@
+{
+  "Metadata": {
+    "title": "The Cinematic Chef — Traditional food from around the world",
+    "description": "Spin the globe, pick a place and learn the traditional dishes from every corner of the world, with their story, step-by-step recipe and cinematic video."
+  },
+  "Header": {
+    "home": "Home",
+    "pricing": "Pricing",
+    "account": "My account",
+    "signIn": "Sign in"
+  },
+  "LocaleSwitcher": {
+    "label": "Language",
+    "pt": "Português",
+    "en": "English"
+  },
+  "Home": {
+    "eyebrow": "@thecinematic.chef",
+    "title": "The whole world, one dish at a time.",
+    "subtitle": "Spin the globe, zoom into a city and discover the story, recipe and video behind each traditional dish.",
+    "comingSoon": "The interactive globe arrives in step 5."
+  },
+  "Footer": {
+    "privacy": "Privacy",
+    "terms": "Terms of use",
+    "rights": "All rights reserved."
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "back": "Back to home"
+  }
+}

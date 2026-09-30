@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Cinematic Chef
 
-## Getting Started
+App web bilíngue (PT/EN) de comidas típicas do mundo, ligado ao Instagram
+[@thecinematic.chef](https://instagram.com/thecinematic.chef). O usuário gira um
+globo 3D, desce até um lugar e acessa os pratos típicos dali.
 
-First, run the development server:
+## Stack
+
+Next.js 16 (App Router) · TypeScript · Tailwind CSS 4 · shadcn/ui · next-intl ·
+Supabase (Postgres, Auth, Storage, RLS) · Mux · Stripe + Mercado Pago · API do Claude.
+
+## Rodando localmente
+
+Requisitos: Node 22+ e Docker (para o Supabase local).
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run db:start          # sobe o Supabase local e imprime as chaves
+cp .env.example .env.local
+# cole PUBLISHABLE_KEY e SECRET_KEY de `npx supabase status` no .env.local
+npm run dev               # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Script | O que faz |
+| --- | --- |
+| `npm run dev` | Servidor de desenvolvimento |
+| `npm run build` | Build de produção |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | Gera os tipos de rota do Next e roda `tsc` |
+| `npm run db:start` / `db:stop` | Liga/desliga o Supabase local |
+| `npm run db:reset` | Recria o banco aplicando migrations e seed |
+| `npm run db:types` | Gera `src/lib/supabase/database.types.ts` a partir do banco local |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Estrutura
 
-## Learn More
+```
+messages/            textos da interface (pt.json, en.json)
+src/app/[locale]/    páginas públicas em /pt e /en
+src/components/ui/   componentes shadcn/ui
+src/i18n/            rotas, navegação e carregamento de mensagens (next-intl)
+src/lib/supabase/    clientes do navegador, do servidor, do proxy e admin
+src/proxy.ts         detecção de idioma + renovação da sessão do Supabase
+supabase/            config local, migrations e seed
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Idiomas
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`/` redireciona para `/pt` ou `/en` conforme o cookie `NEXT_LOCALE` (salvo pelo
+seletor de idioma) ou o `Accept-Language` do navegador. Idiomas sem suporte
+caem em `/pt`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Variáveis de ambiente
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Veja `.env.example`. Só as variáveis `NEXT_PUBLIC_*` chegam ao navegador; as
+demais são lidas no servidor por `src/lib/env.server.ts`, que importa
+`server-only` para impedir o uso em componentes de cliente.
