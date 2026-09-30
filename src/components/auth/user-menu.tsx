@@ -1,7 +1,15 @@
 "use client";
 
 import type { User } from "@supabase/supabase-js";
-import { LogOut, Shield, Sparkles, Stamp, UserRound } from "lucide-react";
+import {
+  LogOut,
+  Map as MapIcon,
+  Shield,
+  Sparkles,
+  Stamp,
+  UserRound,
+  Vote,
+} from "lucide-react";
 import NextLink from "next/link";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
@@ -86,6 +94,18 @@ export function UserMenu() {
           <Link href="/passport">
             <Stamp aria-hidden />
             {t("passport")}
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild className="md:hidden">
+          <Link href="/trips">
+            <MapIcon aria-hidden />
+            {t("trips")}
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild className="sm:hidden">
+          <Link href="/vote">
+            <Vote aria-hidden />
+            {t("vote")}
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild className="sm:hidden">
