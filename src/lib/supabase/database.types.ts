@@ -421,6 +421,18 @@ export type Database = {
         Args: { required?: boolean; value: Json };
         Returns: boolean;
       };
+      search_catalog: {
+        Args: { p_limit?: number; p_query: string };
+        Returns: {
+          access: Database["public"]["Enums"]["dish_access"];
+          id: string;
+          kind: string;
+          location_id: string;
+          name: Json;
+          rank: number;
+          slug: string;
+        }[];
+      };
     };
     Enums: {
       dish_access: "free" | "premium";

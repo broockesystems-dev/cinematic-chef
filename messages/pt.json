@@ -16,12 +16,6 @@
     "pt": "Português",
     "en": "English"
   },
-  "Home": {
-    "eyebrow": "@thecinematic.chef",
-    "title": "O mundo inteiro, um prato de cada vez.",
-    "subtitle": "Gire o globo, desça até uma cidade e descubra a história, a receita e o vídeo de cada prato típico.",
-    "comingSoon": "O globo interativo chega na etapa 5."
-  },
   "Footer": {
     "privacy": "Privacidade",
     "terms": "Termos de uso",
@@ -118,5 +112,30 @@
     "oz": "oz",
     "lb": "lb",
     "fl_oz": "fl oz"
+  },
+  "Explore": {
+    "world": "Mundo",
+    "title": "Explore o mundo pelo prato",
+    "searchLabel": "Buscar prato ou lugar",
+    "searchPlaceholder": "Buscar prato, país ou cidade…",
+    "noResults": "Nada encontrado para “{query}”.",
+    "searching": "Buscando…",
+    "dishCount": "{count, plural, one {# prato} other {# pratos}}",
+    "freeCount": "{count, plural, one {# grátis} other {# grátis}}",
+    "places": {
+      "continent": "Continentes",
+      "country": "Países",
+      "city": "Cidades",
+      "neighborhood": "Bairros"
+    },
+    "dishesHere": "Pratos daqui",
+    "recent": "Pratos recentes",
+    "back": "Voltar para {place}",
+    "globeLabel": "Globo interativo. Use a lista ao lado para navegar pelo teclado.",
+    "globeUnavailable": "O globo 3D não está disponível neste dispositivo. Use a lista para explorar.",
+    "expandPanel": "Expandir lista",
+    "collapsePanel": "Recolher lista",
+    "pinLabel": "{place}: {count, plural, one {# prato} other {# pratos}}",
+    "empty": "Os primeiros pratos chegam em breve."
   }
 }

@@ -109,6 +109,28 @@ garante o resto.
   como faixas de legenda quando o vídeo está pronto (o Mux precisa baixar o
   arquivo, então isso só acontece com o Supabase na nuvem, não em localhost).
 
+## Explorar: globo, navegação e busca
+
+- **Home (`/pt`, `/en`) e `/explore/continente/país/cidade/bairro`:** globo 3D
+  (react-globe.gl) ao lado de um painel com a trilha, a contagem de pratos e
+  quantos são grátis em cada nível. No celular o painel vira uma gaveta
+  inferior, com a busca sempre visível.
+- **Pinos** só onde há prato publicado (um por cidade; bairros entram na
+  cidade). Clicar num pino anima a câmera até o lugar; o globo fica no layout
+  e não recarrega ao navegar.
+- **Celular:** textura menor (160 KB contra 640 KB), sem relevo, resolução
+  limitada e no máximo 40 pinos. Rotação automática só na visão geral e
+  desligada para quem pede movimento reduzido. Sem WebGL, a lista continua
+  funcionando.
+- **Acessibilidade:** o painel é HTML renderizado no servidor, navegável por
+  teclado e indexável; os pinos são um atalho para mouse e toque.
+- **Busca:** `/api/search?q=&locale=` usa o full-text do Postgres
+  (`search_catalog`), sem acento, por prefixo e nos dois idiomas, cobrindo
+  nome e história dos pratos e nomes de lugares. Tem rate limit por IP e cache
+  de 1 minuto na CDN.
+- As páginas do explorador são estáticas (revalidadas a cada 5 minutos e na
+  hora quando o admin salva algo).
+
 ## Página do prato (`/pt/dish/[slug]`)
 
 - Capa, trilha do lugar, selo grátis/assinantes, tempo, dificuldade e porções.

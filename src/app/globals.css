@@ -68,3 +68,63 @@
     @apply bg-background text-foreground;
   }
 }
+
+/*
+ * Globe pins are plain DOM elements positioned by three-globe, which centers
+ * each element on its coordinates. The box is exactly the hit area around the
+ * dot; the label is absolutely positioned so it never shifts the dot.
+ */
+.globe-pin {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  cursor: pointer;
+  transition: opacity 200ms;
+}
+.globe-pin-dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 9999px;
+  background: var(--primary);
+  box-shadow:
+    0 0 0 4px color-mix(in oklch, var(--primary) 30%, transparent),
+    0 0 16px var(--primary);
+}
+.globe-pin-label {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  white-space: nowrap;
+  border-radius: 9999px;
+  background: color-mix(in oklch, var(--background) 80%, transparent);
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  color: var(--foreground);
+  opacity: 0;
+  transition: opacity 150ms;
+}
+@media (pointer: coarse) {
+  .globe-pin {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+}
+.globe-pin:hover .globe-pin-label {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .globe-pin-dot {
+    animation: globe-pin-pulse 2.4s ease-in-out infinite;
+  }
+}
+@keyframes globe-pin-pulse {
+  50% {
+    box-shadow:
+      0 0 0 7px color-mix(in oklch, var(--primary) 10%, transparent),
+      0 0 22px var(--primary);
+  }
+}

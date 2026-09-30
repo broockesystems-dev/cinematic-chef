@@ -16,12 +16,6 @@
     "pt": "Português",
     "en": "English"
   },
-  "Home": {
-    "eyebrow": "@thecinematic.chef",
-    "title": "The whole world, one dish at a time.",
-    "subtitle": "Spin the globe, zoom into a city and discover the story, recipe and video behind each traditional dish.",
-    "comingSoon": "The interactive globe arrives in step 5."
-  },
   "Footer": {
     "privacy": "Privacy",
     "terms": "Terms of use",
@@ -118,5 +112,30 @@
     "oz": "oz",
     "lb": "lb",
     "fl_oz": "fl oz"
+  },
+  "Explore": {
+    "world": "World",
+    "title": "Explore the world one dish at a time",
+    "searchLabel": "Search dishes or places",
+    "searchPlaceholder": "Search a dish, country or city…",
+    "noResults": "Nothing found for “{query}”.",
+    "searching": "Searching…",
+    "dishCount": "{count, plural, one {# dish} other {# dishes}}",
+    "freeCount": "{count} free",
+    "places": {
+      "continent": "Continents",
+      "country": "Countries",
+      "city": "Cities",
+      "neighborhood": "Neighborhoods"
+    },
+    "dishesHere": "Dishes from here",
+    "recent": "Latest dishes",
+    "back": "Back to {place}",
+    "globeLabel": "Interactive globe. Use the list alongside to navigate with a keyboard.",
+    "globeUnavailable": "The 3D globe isn't available on this device. Use the list to explore.",
+    "expandPanel": "Expand list",
+    "collapsePanel": "Collapse list",
+    "pinLabel": "{place}: {count, plural, one {# dish} other {# dishes}}",
+    "empty": "The first dishes are coming soon."
   }
 }
