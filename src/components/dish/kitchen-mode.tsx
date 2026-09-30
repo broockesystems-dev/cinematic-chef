@@ -24,6 +24,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { ChefButton } from "@/components/chef/chef-button";
 import { useWakeLock } from "@/hooks/use-wake-lock";
 import type { UnitSystem } from "@/lib/quantity";
 import { IngredientList } from "./ingredient-list";
@@ -96,6 +97,7 @@ export function KitchenMode({
               {t("progress", { current: index + 1, total: steps.length })}
             </DialogDescription>
           </div>
+          <ChefButton size="sm" compact />
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline" size="sm">

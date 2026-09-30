@@ -24,6 +24,7 @@ export const privacy: Record<"pt" | "en", LegalDocument> = {
         body: [
           "Conta: e-mail, nome (se você informar ou vier do Google), idioma e país.",
           "Uso: pratos favoritados e o status da sua assinatura (plano, provedor, validade).",
+          "Chef IA (assinantes): as perguntas que você faz e as respostas, guardadas por prato até você limpar a conversa ou excluir a conta.",
           "Pagamento: processado pelo Stripe (cartão) ou Mercado Pago (Pix). Não recebemos nem guardamos dados de cartão.",
           "Técnicos: registros de acesso mantidos pelos nossos provedores de hospedagem por segurança.",
         ],
@@ -39,7 +40,7 @@ export const privacy: Record<"pt" | "en", LegalDocument> = {
       {
         title: "Com quem compartilhamos",
         body: [
-          "Somente com operadores necessários ao serviço: Supabase (banco de dados e login), Vercel (hospedagem), Mux (vídeos), Stripe e Mercado Pago (pagamentos) e Google (se você entrar com Google). Alguns ficam fora do Brasil; a transferência segue o art. 33 da LGPD, com cláusulas contratuais adequadas.",
+          "Somente com operadores necessários ao serviço: Supabase (banco de dados e login), Vercel (hospedagem), Mux (vídeos), Stripe e Mercado Pago (pagamentos), Anthropic (gera as respostas do Chef IA a partir das suas perguntas e da receita; não usa esses dados para treinar modelos) e Google (se você entrar com Google). Alguns ficam fora do Brasil; a transferência segue o art. 33 da LGPD, com cláusulas contratuais adequadas.",
           "Não vendemos seus dados e não usamos cookies de publicidade.",
         ],
       },
@@ -85,6 +86,7 @@ export const privacy: Record<"pt" | "en", LegalDocument> = {
         body: [
           "Account: email, name (if you provide it or it comes from Google), language and country.",
           "Usage: favorite dishes and your subscription status (plan, provider, expiry).",
+          "AI Chef (subscribers): the questions you ask and the answers, stored per dish until you clear the conversation or delete your account.",
           "Payments: processed by Stripe (card) or Mercado Pago (Pix). We never receive or store card details.",
           "Technical: access logs kept by our hosting providers for security.",
         ],
@@ -100,7 +102,7 @@ export const privacy: Record<"pt" | "en", LegalDocument> = {
       {
         title: "Who we share it with",
         body: [
-          "Only processors the service needs: Supabase (database and sign-in), Vercel (hosting), Mux (video), Stripe and Mercado Pago (payments) and Google (if you sign in with Google). Some are located outside Brazil; transfers rely on appropriate contractual safeguards.",
+          "Only processors the service needs: Supabase (database and sign-in), Vercel (hosting), Mux (video), Stripe and Mercado Pago (payments), Anthropic (generates AI Chef answers from your questions and the recipe; it does not use this data to train models) and Google (if you sign in with Google). Some are located outside Brazil; transfers rely on appropriate contractual safeguards.",
           "We don't sell your data or use advertising cookies.",
         ],
       },

@@ -34,6 +34,51 @@ export type Database = {
   };
   public: {
     Tables: {
+      ai_messages: {
+        Row: {
+          content: string;
+          created_at: string;
+          dish_id: string;
+          id: string;
+          role: string;
+          tokens: number | null;
+          user_id: string;
+        };
+        Insert: {
+          content: string;
+          created_at?: string;
+          dish_id: string;
+          id?: string;
+          role: string;
+          tokens?: number | null;
+          user_id: string;
+        };
+        Update: {
+          content?: string;
+          created_at?: string;
+          dish_id?: string;
+          id?: string;
+          role?: string;
+          tokens?: number | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "ai_messages_dish_id_fkey";
+            columns: ["dish_id"];
+            isOneToOne: false;
+            referencedRelation: "dishes";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "ai_messages_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       dishes: {
         Row: {
           access: Database["public"]["Enums"]["dish_access"];

@@ -39,7 +39,7 @@ npm run dev               # http://localhost:3000
 
 | Comando | O que cobre |
 | --- | --- |
-| `npm run db:test` | 45 testes pgTAP: RLS (visitante, grátis, assinante, vencido, admin), integridade, busca, rate limit e RPCs do admin |
+| `npm run db:test` | 54 testes pgTAP: RLS (visitante, grátis, assinante, vencido, admin), integridade, busca, rate limit, RPCs do admin e mensagens do Chef IA |
 | `npm test` | 27 testes Vitest: medidas e frações, porções, formatos de tempo, árvore do explorador |
 | `npm run typecheck` / `npm run lint` | Tipos (inclusive das rotas e das mensagens de i18n) e ESLint |
 
@@ -169,6 +169,23 @@ garante o resto.
 - **Modo cozinha:** tela cheia, um passo por vez, texto grande, setas do
   teclado ou deslizar, ingredientes numa gaveta, tela sempre acesa (Wake Lock)
   e timers que continuam rodando entre passos, com som e vibração ao terminar.
+
+## Chef IA (fase 2)
+
+- Botão **Pergunte ao chef** na página do prato e no modo cozinha: um chat
+  com a receita inteira como contexto, que adapta ingredientes ao país do
+  perfil, converte medidas, ajusta porções e tira dúvidas no preparo. Responde
+  no idioma do perfil.
+- **Só assinantes** (e admin): checado em `/api/chef` e de novo pelo RLS de
+  `ai_messages`, que recusa gravar sem assinatura ativa.
+- **Custo sob controle:** limite de `CHEF_DAILY_LIMIT` perguntas por dia
+  (padrão 30, em UTC), rate limit por IP e por usuário, histórico limitado às
+  últimas 20 mensagens, esforço baixo do modelo, cache do prompt do prato e
+  cancelamento da resposta quando o usuário fecha o chat. Cada resposta
+  guarda os tokens usados (`ai_messages.tokens`) para acompanhar o gasto.
+- Modelo `claude-opus-5-5` via API do Claude, só no servidor, com fallback
+  automático se um filtro de segurança recusar. Conversas ficam por prato até
+  o usuário limpar ou excluir a conta (constam na Política de Privacidade).
 
 ## Planos e pagamentos
 

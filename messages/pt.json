@@ -169,6 +169,7 @@
     "features": [
       "Todas as receitas e vídeos completos",
       "Modo cozinha com timers",
+      "Chef IA: adapta a receita ao seu país e tira dúvidas",
       "Favoritos",
       "Novos pratos toda semana"
     ],
@@ -230,5 +231,36 @@
     "privacy": "Política de Privacidade",
     "terms": "Termos de Uso",
     "updated": "Última atualização: {date}"
+  },
+  "Chef": {
+    "open": "Pergunte ao chef",
+    "title": "Chef IA",
+    "subtitle": "Tire dúvidas sobre {dish}: substituições, medidas, porções e o preparo.",
+    "placeholder": "Pergunte algo sobre a receita…",
+    "send": "Enviar",
+    "clear": "Limpar conversa",
+    "thinking": "O chef está pensando…",
+    "remaining": "{count, plural, =0 {Nenhuma pergunta restante hoje} one {# pergunta restante hoje} other {# perguntas restantes hoje}}",
+    "suggestions": {
+      "adapt": "Adapte os ingredientes para o meu país",
+      "convert": "Converta as medidas para o sistema americano",
+      "scale": "Ajuste a receita para 2 pessoas",
+      "substitute": "Com o que posso substituir um ingrediente?"
+    },
+    "disclaimer": "Respostas geradas por IA. Confira alergias e segurança alimentar.",
+    "lockedTitle": "Chef IA para assinantes",
+    "lockedBody": "Assine para conversar com o chef: adaptar ingredientes ao seu país, converter medidas e tirar dúvidas durante o preparo.",
+    "signIn": "Entre para usar o Chef IA",
+    "seePlans": "Ver planos",
+    "errors": {
+      "daily_limit": "Você chegou ao limite de perguntas de hoje. Volte amanhã!",
+      "rate_limited": "Muitas perguntas seguidas. Espere um minuto.",
+      "subscription_required": "O Chef IA é para assinantes.",
+      "unavailable": "O chef está indisponível no momento.",
+      "generic": "Não foi possível falar com o chef. Tente de novo."
+    },
+    "you": "Você",
+    "chef": "Chef",
+    "stop": "Parar resposta"
   }
 }
