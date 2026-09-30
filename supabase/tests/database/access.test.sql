@@ -29,7 +29,17 @@ insert into public.ingredients (dish_id, position, name) values
 
 insert into public.videos (dish_id, kind, status, mux_playback_id) values
   ('50000000-0000-0000-0000-000000000003', 'teaser', 'ready', 'teaser-playback'),
-  ('50000000-0000-0000-0000-000000000003', 'full', 'ready', 'full-playback');
+  ('50000000-0000-0000-0000-000000000003', 'full', 'ready', 'full-playback')
+on conflict (dish_id, kind) do update set status = 'ready', mux_playback_id = excluded.mux_playback_id;
+
+-- Baselines measured now, so the tests don't depend on how many rows the
+-- local database happens to contain.
+create temp table expected as
+select
+  (select count(*)::int from public.locations) as locations,
+  (select count(*)::int from public.dishes where status = 'published' and published_at <= now()) as published,
+  (select count(*)::int from public.dishes) as all_dishes;
+grant select on expected to anon, authenticated;
 
 create function pg_temp.act_as(p_role text, p_user uuid default null) returns void
 language plpgsql as $$
@@ -79,8 +89,8 @@ select is(
 -- ---------------------------------------------------------------------------
 select pg_temp.act_as('anon');
 
-select is((select count(*)::int from public.locations), 10, 'anon: sees all locations');
-select is((select count(*)::int from public.dishes), 3, 'anon: sees only published, non-scheduled dishes');
+select is((select count(*)::int from public.locations), (select locations from expected), 'anon: sees all locations');
+select is((select count(*)::int from public.dishes), (select published from expected), 'anon: sees only published, non-scheduled dishes');
 select ok(
   (select count(*) from public.ingredients where dish_id = '50000000-0000-0000-0000-000000000001') > 0,
   'anon: reads ingredients of a free dish'
@@ -94,7 +104,7 @@ select is(
   0, 'anon: cannot read steps of a premium dish'
 );
 select is(
-  (select array_agg(kind::text) from public.videos), array['teaser'],
+  (select array_agg(kind::text) from public.videos where dish_id = '50000000-0000-0000-0000-000000000003'), array['teaser'],
   'anon: sees the teaser but not the full video'
 );
 select is(
@@ -158,10 +168,10 @@ select ok(
   'subscriber: reads premium ingredients'
 );
 select is(
-  (select count(*)::int from public.videos where kind = 'full'), 1,
+  (select count(*)::int from public.videos where kind = 'full' and dish_id = '50000000-0000-0000-0000-000000000003'), 1,
   'subscriber: sees the full video'
 );
-select is((select count(*)::int from public.dishes), 3, 'subscriber: still cannot see drafts');
+select is((select count(*)::int from public.dishes), (select published from expected), 'subscriber: still cannot see drafts');
 select is((select count(*)::int from public.favorites), 0, 'subscriber: cannot see other users'' favorites');
 
 -- ---------------------------------------------------------------------------
@@ -176,7 +186,7 @@ select ok(not public.has_access('50000000-0000-0000-0000-000000000003'), 'expire
 -- ---------------------------------------------------------------------------
 select pg_temp.act_as('authenticated', '00000000-0000-0000-0000-00000000000d');
 
-select is((select count(*)::int from public.dishes), 5, 'admin: sees drafts and scheduled dishes');
+select is((select count(*)::int from public.dishes), (select all_dishes from expected), 'admin: sees drafts and scheduled dishes');
 select lives_ok(
   $$ insert into public.locations (type, name, slug, lat, lng) values ('continent', '{"pt": "Ásia", "en": "Asia"}', 'asia', 34, 100) $$,
   'admin: can create locations'
