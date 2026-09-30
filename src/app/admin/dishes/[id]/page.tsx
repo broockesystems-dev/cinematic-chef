@@ -1,9 +1,12 @@
+import { ExternalLink } from "lucide-react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DishForm } from "@/components/admin/dish-form";
 import { DishStatusBadge } from "@/components/admin/dish-status-badge";
 import { IngredientsEditor } from "@/components/admin/ingredients-editor";
 import { StepsEditor } from "@/components/admin/steps-editor";
 import { VideoPanel } from "@/components/admin/video-panel";
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getDishWithRecipe, listLocations } from "@/lib/admin/queries";
 import { isMuxConfigured } from "@/lib/mux";
@@ -26,6 +29,12 @@ export default async function EditDishPage({
       <div className="flex flex-wrap items-center gap-3">
         <h1 className="font-display text-3xl font-semibold">{dish.name.pt}</h1>
         <DishStatusBadge status={dish.status} publishedAt={dish.published_at} />
+        <Button asChild variant="ghost" size="sm" className="ml-auto">
+          <Link href={`/pt/dish/${dish.slug}`} target="_blank">
+            <ExternalLink aria-hidden />
+            Ver no site
+          </Link>
+        </Button>
       </div>
       <Tabs defaultValue="details">
         <TabsList className="max-w-full overflow-x-auto">

@@ -28,6 +28,7 @@ npm run dev               # http://localhost:3000
 | `npm run dev` | Servidor de desenvolvimento |
 | `npm run build` | Build de produção |
 | `npm run lint` | ESLint |
+| `npm test` | Testes unitários (Vitest): medidas, frações, formatos |
 | `npm run typecheck` | Gera os tipos de rota do Next e roda `tsc` |
 | `npm run db:start` / `db:stop` | Liga/desliga o Supabase local |
 | `npm run db:reset` | Recria o banco aplicando migrations e seed |
@@ -107,6 +108,27 @@ garante o resto.
 - **Legendas:** arquivos `.vtt` vão para o bucket `media` e são enviados ao Mux
   como faixas de legenda quando o vídeo está pronto (o Mux precisa baixar o
   arquivo, então isso só acontece com o Supabase na nuvem, não em localhost).
+
+## Página do prato (`/pt/dish/[slug]`)
+
+- Capa, trilha do lugar, selo grátis/assinantes, tempo, dificuldade e porções.
+- **Acesso decidido no servidor:** a página lê ingredientes, passos e o vídeo
+  completo com a sessão do visitante; o RLS só devolve esses dados quando
+  `has_access` permite. Quem não assina vê história, teaser e um convite para
+  assinar, e nada da receita chega ao navegador.
+- **Porções e medidas:** ajustar porções recalcula tudo; o botão
+  Métrico/Americano começa pelo idioma (PT → métrico, EN → americano) e a
+  escolha fica salva no navegador. Medidas americanas saem em frações (½ cup,
+  8 ¾ oz).
+- **Vídeo:** Mux Player carregado só quando aparece na tela e sem cookies de
+  analytics. O vídeo completo usa tokens assinados de 1 hora gerados no
+  servidor (`src/lib/video.ts`); se expirarem, o player pede novos em
+  `/api/video-token`, que também respeita o RLS. Gere a chave em Mux ›
+  Settings › Signing Keys e preencha `MUX_SIGNING_KEY` e `MUX_PRIVATE_KEY`
+  (a chave privada em base64, como o Mux entrega).
+- **Modo cozinha:** tela cheia, um passo por vez, texto grande, setas do
+  teclado ou deslizar, ingredientes numa gaveta, tela sempre acesa (Wake Lock)
+  e timers que continuam rodando entre passos, com som e vibração ao terminar.
 
 ## Idiomas
 

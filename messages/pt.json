@@ -44,5 +44,79 @@
       "rate_limited": "Muitas tentativas. Espere alguns minutos e tente de novo.",
       "error": "Não foi possível enviar o link agora. Tente de novo em instantes."
     }
+  },
+  "Dish": {
+    "free": "Grátis",
+    "premium": "Assinantes",
+    "difficulty": {
+      "easy": "Fácil",
+      "medium": "Média",
+      "hard": "Difícil"
+    },
+    "prepTime": "Tempo",
+    "difficultyLabel": "Dificuldade",
+    "servingsLabel": "Porções",
+    "story": "A história",
+    "translationMissing": "Este texto ainda não foi traduzido e aparece no idioma original.",
+    "ingredients": "Ingredientes",
+    "steps": "Modo de preparo",
+    "servings": "{count, plural, one {# porção} other {# porções}}",
+    "decreaseServings": "Menos porções",
+    "increaseServings": "Mais porções",
+    "units": "Medidas",
+    "metric": "Métrico",
+    "us": "Americano",
+    "toTaste": "a gosto",
+    "step": "Passo {number}",
+    "cookMode": "Modo cozinha",
+    "teaser": "Teaser",
+    "fullVideo": "Vídeo completo",
+    "videoTitle": "{dish} — The Cinematic Chef",
+    "noVideo": "Vídeo em breve.",
+    "locked": {
+      "title": "Receita completa para assinantes",
+      "body": "Assine para ver os ingredientes, o passo a passo, o vídeo completo e usar o modo cozinha.",
+      "cta": "Ver planos",
+      "signIn": "Já é assinante? Entrar"
+    },
+    "watchFull": "Assine para assistir ao vídeo completo"
+  },
+  "Timer": {
+    "start": "Iniciar timer de {time}",
+    "pause": "Pausar",
+    "resume": "Continuar",
+    "reset": "Zerar",
+    "done": "Tempo! {step}",
+    "running": "{time} restantes"
+  },
+  "Kitchen": {
+    "title": "Modo cozinha",
+    "exit": "Sair do modo cozinha",
+    "progress": "Passo {current} de {total}",
+    "previous": "Anterior",
+    "next": "Próximo",
+    "finish": "Concluir",
+    "ingredients": "Ingredientes",
+    "wakeLockOn": "A tela vai ficar acesa enquanto você cozinha.",
+    "wakeLockUnsupported": "Seu navegador não permite manter a tela acesa.",
+    "done": "Bom apetite!",
+    "hint": "Use as setas do teclado ou deslize para trocar de passo."
+  },
+  "Units": {
+    "g": "g",
+    "kg": "kg",
+    "ml": "ml",
+    "l": "l",
+    "unit": "",
+    "clove": "{count, plural, one {dente} other {dentes}}",
+    "slice": "{count, plural, one {fatia} other {fatias}}",
+    "bunch": "{count, plural, one {maço} other {maços}}",
+    "pinch": "{count, plural, one {pitada} other {pitadas}}",
+    "tsp": "{count, plural, one {colher (chá)} other {colheres (chá)}}",
+    "tbsp": "{count, plural, one {colher (sopa)} other {colheres (sopa)}}",
+    "cup": "{count, plural, one {xícara} other {xícaras}}",
+    "oz": "oz",
+    "lb": "lb",
+    "fl_oz": "fl oz"
   }
 }

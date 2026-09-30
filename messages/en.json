@@ -44,5 +44,79 @@
       "rate_limited": "Too many attempts. Wait a few minutes and try again.",
       "error": "We couldn't send the link right now. Please try again shortly."
     }
+  },
+  "Dish": {
+    "free": "Free",
+    "premium": "Subscribers",
+    "difficulty": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    },
+    "prepTime": "Time",
+    "difficultyLabel": "Difficulty",
+    "servingsLabel": "Servings",
+    "story": "The story",
+    "translationMissing": "This text hasn't been translated yet and is shown in its original language.",
+    "ingredients": "Ingredients",
+    "steps": "Method",
+    "servings": "{count, plural, one {# serving} other {# servings}}",
+    "decreaseServings": "Fewer servings",
+    "increaseServings": "More servings",
+    "units": "Units",
+    "metric": "Metric",
+    "us": "US",
+    "toTaste": "to taste",
+    "step": "Step {number}",
+    "cookMode": "Cook mode",
+    "teaser": "Teaser",
+    "fullVideo": "Full video",
+    "videoTitle": "{dish} — The Cinematic Chef",
+    "noVideo": "Video coming soon.",
+    "locked": {
+      "title": "Full recipe for subscribers",
+      "body": "Subscribe to see the ingredients, step-by-step method and full video, and to use cook mode.",
+      "cta": "See plans",
+      "signIn": "Already a subscriber? Sign in"
+    },
+    "watchFull": "Subscribe to watch the full video"
+  },
+  "Timer": {
+    "start": "Start {time} timer",
+    "pause": "Pause",
+    "resume": "Resume",
+    "reset": "Reset",
+    "done": "Time's up! {step}",
+    "running": "{time} left"
+  },
+  "Kitchen": {
+    "title": "Cook mode",
+    "exit": "Exit cook mode",
+    "progress": "Step {current} of {total}",
+    "previous": "Previous",
+    "next": "Next",
+    "finish": "Finish",
+    "ingredients": "Ingredients",
+    "wakeLockOn": "Your screen will stay on while you cook.",
+    "wakeLockUnsupported": "Your browser can't keep the screen on.",
+    "done": "Enjoy your meal!",
+    "hint": "Use the arrow keys or swipe to change steps."
+  },
+  "Units": {
+    "g": "g",
+    "kg": "kg",
+    "ml": "ml",
+    "l": "l",
+    "unit": "",
+    "clove": "{count, plural, one {clove} other {cloves}}",
+    "slice": "{count, plural, one {slice} other {slices}}",
+    "bunch": "{count, plural, one {bunch} other {bunches}}",
+    "pinch": "{count, plural, one {pinch} other {pinches}}",
+    "tsp": "tsp",
+    "tbsp": "tbsp",
+    "cup": "{count, plural, one {cup} other {cups}}",
+    "oz": "oz",
+    "lb": "lb",
+    "fl_oz": "fl oz"
   }
 }
